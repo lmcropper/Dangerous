@@ -6,7 +6,7 @@ pygame.init()
 
 # Screen dimensions
 SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 600
+SCREEN_HEIGHT = 1080
 
 
 
@@ -45,6 +45,28 @@ animal_stats = {
 }
 selected_indices = [0, 1]
 selected_animals = [None, None]
+# Load images for animals (ensure these files exist)
+animal_images = {
+    "Moose": pygame.image.load("images/moose.png"),
+    "Black Widow": pygame.image.load("images/black_widow.png"),
+    "Rattlesnake": pygame.image.load("images/rattlesnake.png"),
+    "Mountain Lion": pygame.image.load("images/mountain_lion.png"),
+    "Scorpion": pygame.image.load("images/scorpion.png"),
+    "Mosquito": pygame.image.load("images/mosquito.png"),
+    "Raccoon": pygame.image.load("images/raccoon.png"),
+    "Black Bear": pygame.image.load("images/black_bear.png"),
+    "Coyote": pygame.image.load("images/coyote.png"),
+    "Gila Monster": pygame.image.load("images/gila_monster.png")
+}
+
+# Load and play background music for character select
+pygame.mixer.music.load("music/Megafauna.mp3")
+
+# Load sound effects
+sound_title_start = pygame.mixer.Sound("sounds/title_start.wav")
+sound_playerselect_start = pygame.mixer.Sound("sounds/playerselect_start.wav")
+sound_playerselect_move = pygame.mixer.Sound("sounds/playerselect_move.wav")
+sound_playerselect_select = pygame.mixer.Sound("sounds/playerselect_select.wav")
 
 # Animal Select global params
 select_header_height = 100
@@ -75,8 +97,16 @@ def draw_character_select():
         p1_selection = animal == selected_animals[0]
         p2_selection = animal == selected_animals[1]
         color = (0, 0, 255) if (p1_selection) else (255, 0, 0) if (p2_selection) else (100, 100, 100)
-        pygame.draw.rect(screen, color, ((i % 5) * SCREEN_WIDTH / 5, select_header_height + (i // 5) * select_box_height, select_box_width, select_box_height), select_border_weight)
-        animal_text = font_small.render(animal, True, BLACK)
+        box_rect = ((i % 5) * SCREEN_WIDTH / 5, select_header_height + (i // 5) * select_box_height, select_box_width, select_box_height)
+        
+
+        # Draw the animal image
+        image = animal_images[animal]
+        scaled_image = pygame.transform.scale(image, (int(select_box_width), int(select_box_height)))
+        screen.blit(scaled_image, (box_rect[0], box_rect[1]))
+        pygame.draw.rect(screen, color, box_rect, select_border_weight)  
+        
+        animal_text = font_small.render(animal, True, WHITE, (100, 100, 100))
         if p1_selection:
             p1_text = font_small.render("P1", True, (0, 0, 255))
             screen.blit(p1_text, ((i % 5) * SCREEN_WIDTH / 5 + select_box_width - 50, select_header_height + (i // 5) * select_box_height + 20))
@@ -85,9 +115,7 @@ def draw_character_select():
             screen.blit(p2_text, ((i % 5) * SCREEN_WIDTH / 5 + select_box_width - 50, select_header_height + (i // 5) * select_box_height + 20))
         screen.blit(animal_text, ((i % 5) * SCREEN_WIDTH / 5 + 20, select_header_height + (i // 5) * select_box_height + select_box_height - 40))
 
-    # Show selected animals' stats
-    pygame.draw.rect(screen, (100, 100, 100), (0, select_header_height + select_box_height * 2, int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - select_box_height * 2 - select_header_height), select_border_weight)
-    pygame.draw.rect(screen, (100, 100, 100), (SCREEN_WIDTH / 2, select_header_height + select_box_height * 2, int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - select_box_height * 2 - select_header_height), select_border_weight)
+    # Show selected animals' stats and images
     for i, animal in enumerate(selected_animals):
         if animal:
             origin = (20 + SCREEN_WIDTH / 2 * i, select_header_height + select_box_height * 2 + 20)
@@ -96,6 +124,15 @@ def draw_character_select():
             screen.blit(animal_text, origin)
             screen.blit(stats_text, (origin[0], origin[1] + 50))
 
+            # Draw the selected animal image next to the stats
+            image = animal_images[animal]
+            scaled_image = pygame.transform.scale(image, (SCREEN_HEIGHT - select_box_height * 2 - select_header_height, SCREEN_HEIGHT - select_box_height * 2 - select_header_height))  # Scale to fit next to stats
+            screen.blit(scaled_image, (SCREEN_WIDTH / 2 - (SCREEN_HEIGHT - select_box_height * 2 - select_header_height) + SCREEN_WIDTH / 2 * i, origin[1] - 20))  # Adjust position next to stats
+    #Draw stat border rectangles
+    pygame.draw.rect(screen, (100, 100, 100), (0, select_header_height + select_box_height * 2, int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - select_box_height * 2 - select_header_height), select_border_weight)
+    pygame.draw.rect(screen, (100, 100, 100), (SCREEN_WIDTH / 2, select_header_height + select_box_height * 2, int(SCREEN_WIDTH / 2), SCREEN_HEIGHT - select_box_height * 2 - select_header_height), select_border_weight)
+    
+    
     # Draw start button if both animals are selected
     if all(selected_animals):
         start_banner_height = 200
@@ -117,16 +154,20 @@ def draw_fight_screen():
 def handle_title_screen_events(event):
     global current_state
     if event.type == pygame.KEYDOWN:
+        sound_title_start.play()
         current_state = CHARACTER_SELECT
     elif event.type == pygame.JOYBUTTONDOWN:
+        sound_title_start.play()
         current_state = CHARACTER_SELECT
+        
 
 def handle_character_select_events(event):
     global current_state
-    print(selected_animals)
+    # print(selected_animals)
     if all(selected_animals) and (event.type == pygame.KEYDOWN or event.type == pygame.JOYBUTTONDOWN):
-        
+        sound_playerselect_start.play()
         current_state = FIGHT_SCREEN
+
 
     if event.type == pygame.JOYAXISMOTION:
         for joystick in joysticks.values():
@@ -137,7 +178,6 @@ def handle_character_select_events(event):
                 selected_indices[player] = (selected_indices[player] - axes[1]) % 10
             if axes[0]:
                 selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
-
 
 def handle_fight_screen_events(event):
     pass
@@ -162,10 +202,14 @@ while running:
             print(f"Joystick {event.instance_id} disconnected")
 
         if current_state == TITLE_SCREEN:
+            # Start playing music when entering character select
+            if pygame.mixer.music.get_busy() == False:  # Check if music is already playing
+                pygame.mixer.music.play(-1)  # Loop music indefinitely
             handle_title_screen_events(event)
         elif current_state == CHARACTER_SELECT:
             handle_character_select_events(event)
         elif current_state == FIGHT_SCREEN:
+            pygame.mixer.music.stop()  # Stop music when leaving character select
             handle_fight_screen_events(event)
 
     if current_state == TITLE_SCREEN:
