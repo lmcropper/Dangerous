@@ -1,5 +1,7 @@
 import pygame
 import sys
+import time
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -41,7 +43,8 @@ animal_stats = {
     "Raccoon": "Stats for Raccoon",
     "Black Bear": "Stats for Black Bear",
     "Coyote": "Stats for Coyote",
-    "Gila Monster": "Stats for Gila Monster"
+    "Gila Monster": "Stats for Gila Monster",
+    "Logan Cropper": "infinity"
 }
 selected_indices = [0, 1]
 selected_animals = [None, None]
@@ -56,8 +59,23 @@ animal_images = {
     "Raccoon": pygame.image.load("images/raccoon.png"),
     "Black Bear": pygame.image.load("images/black_bear.png"),
     "Coyote": pygame.image.load("images/coyote.png"),
-    "Gila Monster": pygame.image.load("images/gila_monster.png")
+    "Gila Monster": pygame.image.load("images/gila_monster.png"),
+    #"Logan Cropper": None # TODO: Add Logan Cropper image
 }
+animal_sprites = {
+    "Moose": pygame.image.load("sprites/moose.png"),
+    "Black Widow": pygame.image.load("sprites/black_widow.png"),
+    "Rattlesnake": pygame.image.load("sprites/snake.png"),
+    "Mountain Lion": pygame.image.load("sprites/cougar.png"),
+    "Scorpion": pygame.image.load("sprites/scorpion.png"),
+    "Mosquito": pygame.image.load("sprites/mosquito.png"),
+    "Raccoon": pygame.image.load("sprites/raccoon.png"),
+    "Black Bear": pygame.image.load("sprites/bear.png"),
+    "Coyote": pygame.image.load("sprites/coyote.png"),
+    "Gila Monster": pygame.image.load("sprites/gila_monster.png"),
+    #"Logan Cropper": None # TODO: Add Logan Cropper sprite
+}
+sprite_size = (300, 300) # y, x
 
 # Load and play background music for character select
 pygame.mixer.music.load("music/Megafauna.mp3")
@@ -140,16 +158,94 @@ def draw_character_select():
         pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 2 - start_banner_height / 2, SCREEN_WIDTH, start_banner_height), 0)
         screen.blit(start_text, start_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)))
 
+# Constants for animation states
+STATE_APPEAR = 0
+STATE_STEP_CLOSER = 1
+STATE_FIGHT = 2
+STATE_FINISHED = 3
+
+# Constants for moves
+BACK = 0
+PUNCH = 1
+KICK = 2
+
+# Initialize variables
+animation_state = STATE_APPEAR
+sprite_positions = [(200, 300), (SCREEN_WIDTH - 200 - sprite_size[1], 300)]
+sprite_home_positions = sprite_positions.copy()
+sprite_angles = [0, 0]
+sprite_attack_state = BACK
+step_count = 0
+turn_count = 0
+
 def draw_fight_screen():
     screen.fill(WHITE)
     fight_text = font_large.render("Fight!", True, BLACK)
     screen.blit(fight_text, ((SCREEN_WIDTH - fight_text.get_width()) // 2, 20))
 
-    # Draw dummy sprites for selected animals
+    # Draw sprites for selected animals
     for i, animal in enumerate(selected_animals):
-        if animal:
-            dummy_sprite = font_large.render(animal[0], True, BLACK)
-            screen.blit(dummy_sprite, (200 + i * 400, 300))
+        if animal in animal_sprites.keys():
+            sprite = animal_sprites[animal]
+            scaled_sprite = pygame.transform.scale(sprite, sprite_size)
+            screen.blit(scaled_sprite, sprite_positions[i])
+        else:
+            dummy_sprite = font_large.render("?", True, BLACK)
+            screen.blit(dummy_sprite, sprite_positions[i])
+
+def update_sprite_positions():
+    global animation_state, step_count, turn_count
+    global active_sprite, move_count, moves
+    global sprite_positions, sprite_home_positions, sprite_attack_state
+    if animation_state == STATE_APPEAR:
+        if step_count > 5:
+            animation_state = STATE_STEP_CLOSER
+            step_count = 0
+        step_count += 1
+
+    if animation_state == STATE_STEP_CLOSER:
+        sprite_positions[0] = (sprite_positions[0][0] + 100, sprite_positions[0][1])
+        sprite_positions[1] = (sprite_positions[1][0] - 100, sprite_positions[1][1])
+        step_count += 1
+        if step_count > 3:  # Number of steps to take
+            animation_state = STATE_FIGHT
+            sprite_home_positions = sprite_positions.copy()
+            step_count = 0
+
+    if animation_state == STATE_FIGHT:
+        if turn_count < 4:
+            if step_count == 0:
+                # Choose next move set
+                active_sprite = random.choice([0, 1])
+                move_count = random.randint(1, 3)
+                moves = [random.choice([PUNCH, KICK]) for _ in range(move_count)]
+                step_count += 1
+
+            elif step_count < move_count:
+                if sprite_attack_state == BACK:
+                    # Perform next move
+                    if moves[step_count] == PUNCH:
+                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1])
+                        sprite_attack_state = PUNCH
+                    elif moves[step_count] == KICK:
+                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1] + 150)
+                        sprite_attack_state = KICK
+                    step_count += 1
+                else:
+                    # Return to home position
+                    sprite_positions[active_sprite] = sprite_home_positions[active_sprite]
+                    sprite_attack_state = BACK
+
+            else: 
+                step_count = 0
+                turn_count += 1
+
+        else:
+            turn_count = 0
+            animation_state = STATE_FINISHED
+
+    if animation_state == STATE_FINISHED:
+        pass
 
 def handle_title_screen_events(event):
     global current_state
@@ -217,9 +313,11 @@ while running:
     elif current_state == CHARACTER_SELECT:
         draw_character_select()
     elif current_state == FIGHT_SCREEN:
+        update_sprite_positions()
         draw_fight_screen()
 
     pygame.display.flip()
+    time.sleep(0.1)
 
 pygame.quit()
 sys.exit()
