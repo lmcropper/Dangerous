@@ -18,6 +18,8 @@ BLACK = (0, 0, 0)
 # Screen setup
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Top 10 Dangerous Animals")
+clock = pygame.time.Clock()
+framerate = 60
 
 # Game states
 TITLE_SCREEN = "title"
@@ -407,6 +409,7 @@ while running:
         draw_fight_screen()
 
     pygame.display.flip()
+    clock.tick(framerate)
 
 pygame.quit()
 sys.exit()
