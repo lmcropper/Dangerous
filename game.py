@@ -36,6 +36,7 @@ font_select_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_select_animal_small = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 36)
 font_select_animal_large = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 48)
 font_fight_title = pygame.font.Font("./fonts/Platinum Sign OVer.ttf", 74)
+font_large = pygame.font.Font(None, 72)
 font_small = pygame.font.Font(None, 36)
 
 # Animals
@@ -45,7 +46,7 @@ animal_stats = {
     "Black Widow": "Stats for Black Widow",
     "Rattlesnake": 
         """Female rattlesnakes carry and incubate their eggs inside of their bodies for around 90 days before giving birth to live young.
-        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake’s brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.
+        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake's brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.
         Rattlesnakes have an inner ear structure without an eardrum, instead, snakes "hear" by sensing vibrations through their jawbone.
         Once rattlesnakes grow out of their old skin and go through the molting process, their bodies naturally add an extra segment to their rattles each time.
         Their rattle is made up of various interlocking rings of keratin, the same material that human hair, skin, and nails are made of.""",
@@ -53,8 +54,8 @@ animal_stats = {
         """Cougars can jump 18ft vertically and 40ft horizontally.
         Utah division of wildlife resources estimates that 2,300 cougars live in Utah.
         Highest cat: cougar spotted at 5,800 m (19,024 ft).
-        Cougar is an ambush predator–It either stalks its prey or waits for it to draw close before striking.
-        The cubs stay with their mother for between 18 months to 2 years. The cubs drink their mother’s milk for around 3 months, but begin to eat meat after 6 weeks.""",
+        Cougar is an ambush predator--It either stalks its prey or waits for it to draw close before striking.
+        The cubs stay with their mother for between 18 months to 2 years. The cubs drink their mother's milk for around 3 months, but begin to eat meat after 6 weeks.""",
     "Scorpion": 
         """After birth, the newborn scorpions ride on their mother's back, where they remain protected until they molt for the first time.
         Fossil evidence shows that scorpions have remained largely unchanged since the Carboniferous period (350-300 million years ago).
@@ -298,6 +299,8 @@ def update_sprite_positions():
 
     if animation_state == STATE_FINISHED:
         pass
+    
+    time.sleep(0.1)
 
 def handle_title_screen_events(event):
     global current_state
@@ -404,7 +407,6 @@ while running:
         draw_fight_screen()
 
     pygame.display.flip()
-    time.sleep(0.1)
 
 pygame.quit()
 sys.exit()
