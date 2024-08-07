@@ -34,9 +34,24 @@ animals = ["Moose", "Black Widow", "Rattlesnake", "Mountain Lion", "Scorpion", "
 animal_stats = {
     "Moose": "Stats for Moose",
     "Black Widow": "Stats for Black Widow",
-    "Rattlesnake": "Stats for Rattlesnake",
-    "Mountain Lion": "Stats for Mountain Lion",
-    "Scorpion": "Stats for Scorpion",
+    "Rattlesnake": 
+        "Female rattlesnakes carry and incubate their eggs inside of their bodies for around 90 days before giving birth to live young.
+        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake’s brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.
+        Rattlesnakes have an inner ear structure without an eardrum, instead, snakes "hear" by sensing vibrations through their jawbone.
+        Once rattlesnakes grow out of their old skin and go through the molting process, their bodies naturally add an extra segment to their rattles each time.
+        Their rattle is made up of various interlocking rings of keratin, the same material that human hair, skin, and nails are made of.",
+    "Mountain Lion": 
+        "Cougars can jump 18ft vertically and 40ft horizontally.
+        Utah division of wildlife resources estimates that 2,300 cougars live in Utah.
+        Highest cat: cougar spotted at 5,800 m (19,024 ft).
+        Cougar is an ambush predator–It either stalks its prey or waits for it to draw close before striking.
+        The cubs stay with their mother for between 18 months to 2 years. The cubs drink their mother’s milk for around 3 months, but begin to eat meat after 6 weeks.",
+    "Scorpion": 
+        "After birth, the newborn scorpions ride on their mother's back, where they remain protected until they molt for the first time.
+        Fossil evidence shows that scorpions have remained largely unchanged since the Carboniferous period (350-300 million years ago).
+        Modern scorpions can live as long as 25 years.
+        Scorpions engage in an elaborate courtship ritual known as the promenade à deux (literally, a walk for two).
+        Of the nearly 2,000 known species of scorpions in the world, only 25 are known to produce venom powerful enough to pack a dangerous punch to an adult.",
     "Mosquito": "Stats for Mosquito",
     "Raccoon": "Stats for Raccoon",
     "Black Bear": "Stats for Black Bear",
