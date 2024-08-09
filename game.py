@@ -104,6 +104,8 @@ animal_sprites = {
 }
 sprite_size = (300, 300) # y, x
 
+background_image = pygame.image.load("images/brick.jpg")
+
 # Load and play background music for character select
 pygame.mixer.music.load("music/Megafauna.mp3")
 
@@ -138,7 +140,10 @@ def draw_character_select():
     global selected_animals
     selected_animals = [animals[selected_indices[0]], animals[selected_indices[1]]]
     screen.fill(select_background_color)
-    title_text = font_select_title.render("CHARACTER SELECT", True, BLACK)
+
+    screen.blit(background_image, (0, 0))
+
+    title_text = font_select_title.render("CHARACTER SELECT", True, WHITE)
     screen.blit(title_text, ((SCREEN_WIDTH - title_text.get_width()) // 2, 5))
 
     # Time-based factor for pulsing effect
@@ -192,8 +197,8 @@ def draw_character_select():
     for i, animal in enumerate(selected_animals):
         if animal:
             origin = (20 + SCREEN_WIDTH / 2 * i, select_header_height + select_box_height * 2 + 20)
-            animal_text = font_select_animal_large.render(animal, True, BLACK)
-            stats_text = font_small.render(animal_stats[animal], True, BLACK)
+            animal_text = font_select_animal_large.render(animal, True, WHITE)
+            stats_text = font_small.render(animal_stats[animal], True, WHITE)
             screen.blit(animal_text, origin)
             screen.blit(stats_text, (origin[0], origin[1] + 50))
 
