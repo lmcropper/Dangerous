@@ -315,8 +315,8 @@ def update_sprite_positions():
 
     if animation_state == STATE_STEP_CLOSER:
         # Move sprites towards each other
-        sprite_positions[0] = (sprite_positions[0][0] + 20, sprite_positions[0][1])
-        sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
+        sprite_positions[0] = (sprite_positions[0][0] + 10, sprite_positions[0][1])  # Slower approach
+        sprite_positions[1] = (sprite_positions[1][0] - 10, sprite_positions[1][1])
         
         # Check if they have met in the center
         if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
@@ -330,7 +330,7 @@ def update_sprite_positions():
 
     if animation_state == STATE_BUMP:
         # Sprites bump into each other a few times
-        bump_distance = 20  # How far they move back and forth
+        bump_distance = 10  # Smaller bump distance for smoother animation
         if step_count % 2 == 0:
             sprite_positions[0] = (sprite_home_positions[0][0] - bump_distance, sprite_positions[0][1])
             sprite_positions[1] = (sprite_home_positions[1][0] + bump_distance, sprite_positions[1][1])
@@ -339,19 +339,19 @@ def update_sprite_positions():
 
         step_count += 1
 
-        if step_count >= 6:  # Number of bumps (3 bumps here)
+        if step_count >= 12:  # Increase the number of steps for smoother bumps
             animation_state = STATE_FIGHT
             step_count = 0
 
     if animation_state == STATE_FIGHT:
         if step_count == 0:
             # Winning sprite continues moving forward
-            sprite_positions[winning_sprite] = (sprite_positions[winning_sprite][0] + 30, sprite_positions[winning_sprite][1])
+            sprite_positions[winning_sprite] = (sprite_positions[winning_sprite][0] + 15, sprite_positions[winning_sprite][1])
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 10, sprite_positions[losing_sprite][1])
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 15)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 5, sprite_positions[losing_sprite][1])
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
@@ -362,7 +362,8 @@ def update_sprite_positions():
         # Fight is over, you can display a "Winner" message or reset the screen
         pass
 
-    time.sleep(0.01)
+    time.sleep(0.05)  # Smoother animation with shorter sleep
+
 
 
 
