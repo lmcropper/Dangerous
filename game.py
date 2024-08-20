@@ -298,26 +298,17 @@ def draw_fight_screen():
             scaled_sprite = pygame.transform.scale(sprite, sprite_size)
             if i == 0:  # Mirror the sprite on the left
                 scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
-
-            if i == losing_sprite and animation_state == STATE_FIGHT:
-                # Rotate the losing sprite during the fight
-                rotated_sprite = pygame.transform.rotate(scaled_sprite, losing_sprite_angle)
-                # Adjust the position so the rotation doesn't shift the center of the sprite
-                rotated_rect = rotated_sprite.get_rect(center=sprite_positions[i])
-                screen.blit(rotated_sprite, rotated_rect.topleft)
-            else:
-                screen.blit(scaled_sprite, sprite_positions[i])
+            screen.blit(scaled_sprite, sprite_positions[i])
         else:
             dummy_sprite = font_large.render("?", True, BLACK)
             screen.blit(dummy_sprite, sprite_positions[i])
 
 
-
-
 def update_sprite_positions():
     global animation_state, step_count, turn_count
+    global active_sprite, move_count, moves
     global sprite_positions, sprite_home_positions, sprite_attack_state
-    global losing_sprite, winning_sprite, losing_sprite_angle
+    global losing_sprite, winning_sprite, losing_sprite_angle, rotated_losing_sprite
 
     if animation_state == STATE_APPEAR:
         # Initial position setup from edges of the screen
@@ -327,8 +318,8 @@ def update_sprite_positions():
 
     if animation_state == STATE_STEP_CLOSER:
         # Move sprites towards each other
-        sprite_positions[0] = (sprite_positions[0][0] + 10, sprite_positions[0][1])  # Slower approach
-        sprite_positions[1] = (sprite_positions[1][0] - 10, sprite_positions[1][1])
+        sprite_positions[0] = (sprite_positions[0][0] + 20, sprite_positions[0][1])  # Slower approach
+        sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
         
         # Check if they have met in the center
         if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
@@ -337,10 +328,12 @@ def update_sprite_positions():
             step_count = 0
             turn_count = 0
 
-            # Determine winning and losing sprite based on index
-            winning_sprite = 0  # The sprite with the smaller index wins
-            losing_sprite = 1
-            losing_sprite_angle = 0  # Initialize rotation angle
+            # Randomly choose which sprite wins
+            winning_sprite = random.choice([0, 1])
+            losing_sprite = 1 - winning_sprite
+
+            # Initialize rotation angle
+            losing_sprite_angle = 0
 
     if animation_state == STATE_BUMP:
         # Sprites bump into each other a few times
@@ -365,10 +358,11 @@ def update_sprite_positions():
         else:
             # Losing sprite is propelled up and away
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 15)
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 5, sprite_positions[losing_sprite][1])
-            
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
+
             # Rotate the losing sprite
-            losing_sprite_angle += 10  # Increase rotation angle for each frame
+            losing_sprite_angle += 15  # Increase rotation angle for each frame
+            rotated_losing_sprite = pygame.transform.rotate(animal_sprites[selected_animals[losing_sprite]], losing_sprite_angle)
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
@@ -380,7 +374,6 @@ def update_sprite_positions():
         pass
 
     time.sleep(0.05)  # Smoother animation with shorter sleep
-
 
 
 
