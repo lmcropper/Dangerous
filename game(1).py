@@ -44,71 +44,70 @@ font_small = pygame.font.Font(None, 24)
 animals = ["Moose", "Black Widow", "Rattlesnake", "Mountain Lion", "Scorpion", "Mosquito", "Raccoon", "Black Bear", "Coyote", "Gila Monster"]
 animal_stats = {
     "Moose": 
-        """Moose are the largest deer species, weighing up to 1,500 lbs.\n
-        Male moose grow antlers up to 6 feet wide.\n
-        Moose have poor eyesight but strong smell and hearing.\n
-        They are great swimmers, diving up to 20 feet deep.\n
-        During mating, bull moose can be very aggressive.""",
+        """\nMoose are the largest deer species, weighing up to 1,500 lbs and standing 6 feet tall.\n
+        Male moose grow antlers that can span up to 6 feet wide from tip to tip.\n
+        Moose have poor eyesight but make up for it with a strong sense of smell and hearing.\n
+        They are excellent swimmers and can dive up to 20 feet deep in lakes and ponds.\n
+        During mating season, bull moose can become aggressive, using antlers to spar.""",
     "Black Widow": 
-        """Black widow venom is 15 times stronger than a rattlesnake's.\n
-        Female widows have a red hourglass mark underneath.\n
-        Named for the female's habit of eating males post-mating.\n
-        Their silk is strong, comparable to commercial materials.\n
-        Black widows spin irregular webs in dark, quiet places.""",
+        """\nBlack widow venom is 15 times stronger than a rattlesnake's, making them highly toxic.\n
+        Female black widows are recognized by the red hourglass mark on their abdomen.\n
+        The name comes from the female's habit of consuming the male after mating.\n
+        Black widow silk is incredibly strong, comparable to commercial-grade materials.\n
+        They spin irregular, tangled webs in dark, undisturbed areas such as basements.""",
     "Rattlesnake": 
-        """Female rattlesnakes carry eggs and give live birth.\n
-        They "see" heat using pits near their eyes.\n
-        Rattlesnakes sense vibrations through their jawbones.\n
-        They add a rattle segment after each molt.\n
-        Rattles are made of keratin, like human nails.""",
+        """\nFemale rattlesnakes carry eggs inside their bodies and give birth to live young.\n
+        They have heat-sensitive pits that allow them to detect prey in complete darkness.\n
+        Rattlesnakes lack eardrums and "hear" by sensing vibrations through their jaws.\n
+        Their rattles grow an extra segment each time they shed their skin.\n
+        Rattles are made of keratin, the same material found in human hair and nails.""",
     "Mountain Lion": 
-        """Cougars can jump 18 feet up and 40 feet forward.\n
-        About 2,300 cougars live in Utah.\n
-        Highest cougar sighting: 19,024 feet altitude.\n
-        Ambush predators, they strike after stalking prey.\n
-        Cubs stay with mothers for up to 2 years.""",
+        """\nCougars can jump 18 feet vertically and 40 feet horizontally, making them powerful hunters.\n
+        Utah is home to approximately 2,300 cougars, according to wildlife estimates.\n
+        The highest altitude cougar was spotted at 19,024 feet above sea level.\n
+        Cougars are ambush predators, stalking or waiting to strike their prey.\n
+        Cougar cubs stay with their mothers for 18 months to 2 years, learning survival skills.""",
     "Scorpion": 
-        """Baby scorpions ride on their mother's back after birth.\n
-        Scorpions have barely changed in 300 million years.\n
-        Modern scorpions can live up to 25 years.\n
-        Scorpions have a complex mating ritual.\n
-        Only 25 out of 2,000 species have deadly venom.""",
+        """\nNewborn scorpions ride on their mother's back until their first molt for protection.\n
+        Scorpions have remained largely unchanged for 300 million years, according to fossils.\n
+        Modern scorpions can live for up to 25 years in the wild under favorable conditions.\n
+        Scorpions engage in a complex mating dance known as the promenade à deux.\n
+        Only 25 of the nearly 2,000 scorpion species have venom potent enough to harm humans.""",
     "Mosquito":
-        """Only female mosquitoes bite to produce eggs.\n
-        Their wings beat 300-600 times per second.\n
-        Females can drink their body weight in blood.\n
-        Mosquitoes lay eggs in standing water.\n
-        They can smell CO2 from 75 feet away.""",
+        """\nOnly female mosquitoes bite to extract the protein from blood needed to produce eggs.\n
+        A mosquito's wings beat from 300 to 600 times per second, creating their distinctive buzz.\n
+        Female mosquitoes can consume their body weight in blood during a single feeding.\n
+        Mosquitoes lay their eggs in standing water and rest in shady, low-airflow areas.\n
+        They can detect the carbon dioxide in your breath from up to 75 feet away.""",
     "Raccoon": 
-        """Raccoon paws are very sensitive, especially when wet.\n
-        Raccoons thrive in urban areas alongside humans.\n
-        Raccoons are the second most rabid wild animal in the US.\n
-        They are great climbers, descending trees headfirst.\n
-        "Raccoon" means "he who rubs with his hands." """,
+        """\nRaccoon paws have very sensitive nerves, and wetting them increases their sensitivity.\n
+        Raccoons thrive in urban areas, adapting well to life alongside humans.\n
+        Raccoons are the second most frequently reported rabid wildlife species in the U.S.\n
+        They are excellent climbers and can descend tree trunks headfirst with ease.\n
+        The name "raccoon" comes from an Algonquin word meaning "one who rubs with his hands." """,
     "Black Bear": 
-        """Black bears hibernate from late November to early December.\n
-        They live in forests and are excellent tree climbers.\n
-        Cubs stay with mothers for up to three years.\n
-        Black bears can swim over a mile in freshwater.\n
-        They can sprint at speeds up to 35 mph.""",
+        """\nBlack bears hibernate from late November to early December to conserve energy in winter.\n
+        They typically live in forests and are excellent tree climbers, sometimes sleeping in trees.\n
+        Black bear cubs stay with their mother for one to three years, learning survival skills.\n
+        These bears are strong swimmers, capable of paddling over a mile in freshwater.\n
+        Black bears can sprint at speeds up to 35 miles per hour when threatened.""",
     "Coyote": 
-        """Coyotes inhabit various North American environments.\n
-        They form strong family bonds, often living in packs.\n
-        Known for their distinctive howls, yips, and barks.\n
-        Coyotes can run up to 40 mph, making them very fast.\n
-        They have keen senses of smell, hearing, and sight.""",
+        """\nCoyotes are highly adaptable and can be found in nearly every habitat in North America.\n
+        Coyotes form strong family bonds, with packs usually consisting of a mated pair and offspring.\n
+        They are known for their distinctive vocalizations, including howls, yips, and barks.\n
+        Coyotes can run at speeds of up to 40 miles per hour, making them very fast predators.\n
+        Their excellent senses of smell, hearing, and sight help them hunt and avoid danger.""",
     "Gila Monster": 
-        """Gila monsters are one of two venomous US lizards.\n
-        Their bite is painful but rarely fatal to humans.\n
-        They store fat in their tails for months of energy.\n
-        Gila monsters use smell to find nests of eggs.\n
-        They are protected by law due to their shrinking habitat.""",
+        """\nGila monsters are one of only two venomous lizards in North America, with a painful bite.\n
+        They can store fat in their tails, surviving for months on these reserves without food.\n
+        Gila monsters use their keen sense of smell to locate nests of eggs and small prey.\n
+        Once a Gila monster bites, it tends to hold on, gnawing to inject venom through its teeth.\n
+        Due to their slow reproduction and shrinking habitat, they are protected by law.""",
     "Logan Cropper": 
-        """President of the comedy club.\n
-        Plays drums in a salsa band.\n
-        Can stare down a laser without flinching.\n
-        Plays Lucina in Smash Bros.\n
-        The most dangerous animal of them all."""
+        """\nPresident of the comedy club and drummer in a salsa band, Logan is a multi-talented guy.\n
+        Known for his fearless attitude, he can stare down a laser without flinching.\n
+        Logan is a skilled gamer, often playing Lucina in Smash Bros tournaments.\n
+        With his diverse skills and confidence, Logan is the most dangerous "animal" of all."""
 }
 
 selected_indices = [0, 1]
@@ -166,7 +165,7 @@ select_border_weight = 10
 select_selected_border_weight = 30
 
 last_input_time = [0,0]  # Last time input was received for each player
-debounce_delay = 0.05  # 200 milliseconds debounce delay
+debounce_delay = 0.15  # 200 milliseconds debounce delay
 
 joysticks = {}
 
