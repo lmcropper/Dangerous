@@ -370,6 +370,9 @@ import time
 # Debounce delay in seconds
 debounce_delay = 0.2
 
+# Dictionary to store the last direction for each joystick
+last_direction = {0: [0, 0], 1: [0, 0]}
+
 # Dictionary to store the last processed time for each joystick
 last_processed_time = {}
 
@@ -383,7 +386,7 @@ def handle_character_select_events(event):
             last_processed_time[jid] = 0
         
         # Check if enough time has passed since the last processed input
-        debounce_delay = 0.1 if event.type == pygame.JOYBUTTONDOWN else 0.2
+        debounce_delay = 0.00 if event.type == pygame.JOYBUTTONDOWN else 0.2
         if current_time - last_processed_time[jid] < debounce_delay:
             return
         
@@ -407,7 +410,7 @@ def handle_character_select_events(event):
             current_state = FIGHT_SCREEN
 
     if event.type == pygame.JOYAXISMOTION:
-        for joystick in joysticks.values():
+        """for joystick in joysticks.values():
             jid = joystick.get_instance_id()
             axes = [round(joystick.get_axis(0)), round(joystick.get_axis(1))]
             player = 0 if jid == 0 else 1
@@ -417,7 +420,28 @@ def handle_character_select_events(event):
                     sound_playerselect_move.play()
                 if axes[0]:
                     selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
-                    sound_playerselect_move.play()
+                    sound_playerselect_move.play()"""
+
+        for joystick in joysticks.values():
+            jid = joystick.get_instance_id()
+            axes = [round(joystick.get_axis(0)), round(joystick.get_axis(1))]
+            player = 0 if jid == 0 else 1
+            
+            if not animal_selected[player]:
+                # Check if the current direction is different from the last direction
+                if axes[1] != last_direction[player][1]:
+                    if axes[1]:
+                        selected_indices[player] = (selected_indices[player] - axes[1]) % 10
+                        sound_playerselect_move.play()
+                    # Update the last direction for the Y-axis
+                    last_direction[player][1] = axes[1]
+
+                if axes[0] != last_direction[player][0]:
+                    if axes[0]:
+                        selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
+                        sound_playerselect_move.play()
+                    # Update the last direction for the X-axis
+                    last_direction[player][0] = axes[0]
     #print(selected_indices)
     pygame.event.clear()
 
