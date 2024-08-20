@@ -127,8 +127,9 @@ animal_images = {
     "Coyote": pygame.image.load("images/coyote.png"),
     "Gila Monster": pygame.image.load("images/gila_monster.png"),
     #"Logan Cropper": None
-}
 
+ # TODO: Add Logan Cropper image
+}
 animal_sprites = {
     "Moose": pygame.image.load("sprites/moose.png"),
     "Black Widow": pygame.image.load("sprites/black_widow.png"),
@@ -167,6 +168,13 @@ last_input_time = [0,0]  # Last time input was received for each player
 debounce_delay = 0.05  # 200 milliseconds debounce delay
 
 joysticks = {}
+
+# Function to draw multiline text
+def draw_multiline_text(text, font, color, surface, x, y, line_height):
+    lines = text.split('\n')  # Split the text into lines based on the newline character
+    for i, line in enumerate(lines):
+        line_surface = font.render(line, True, color)
+        surface.blit(line_surface, (x, y + i * line_height))
 
 # Functions
 def draw_title_screen():
@@ -238,9 +246,8 @@ def draw_character_select():
         if animal:
             origin = (20 + SCREEN_WIDTH / 2 * i, select_header_height + select_box_height * 2 + 20)
             animal_text = font_select_animal_large.render(animal, True, WHITE)
-            stats_text = font_small.render(animal_stats[animal], True, WHITE)
             screen.blit(animal_text, origin)
-            screen.blit(stats_text, (origin[0], origin[1] + 50))
+            draw_multiline_text(animal_stats[animal], font_small, WHITE, screen, origin[0], origin[1] + 50, font_small.get_height())
 
             # Draw the selected animal image next to the stats
             image = animal_images[animal]
