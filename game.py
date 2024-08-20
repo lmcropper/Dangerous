@@ -296,10 +296,13 @@ def draw_fight_screen():
         if animal in animal_sprites.keys():
             sprite = animal_sprites[animal]
             scaled_sprite = pygame.transform.scale(sprite, sprite_size)
+            if i == 0:  # Mirror the sprite on the left
+                scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
             screen.blit(scaled_sprite, sprite_positions[i])
         else:
             dummy_sprite = font_large.render("?", True, BLACK)
             screen.blit(dummy_sprite, sprite_positions[i])
+
 
 def update_sprite_positions():
     global animation_state, step_count, turn_count
