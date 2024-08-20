@@ -44,32 +44,72 @@ font_small = pygame.font.Font(None, 36)
 # Animals
 animals = ["Moose", "Black Widow", "Rattlesnake", "Mountain Lion", "Scorpion", "Mosquito", "Raccoon", "Black Bear", "Coyote", "Gila Monster"]
 animal_stats = {
-    "Moose": "Stats for Moose",
-    "Black Widow": "Stats for Black Widow",
+    "Moose": 
+        """Moose are the largest members of the deer family: weighing up to 1,500 pounds and standing about 6 feet tall at the shoulder.\n
+        Male moose grow massive, broad antlers that can span up to 6 feet from tip to tip.\n
+        Moose have relatively poor eyesight, but they make up for it with a strong sense of smell and acute hearing.\n
+        Moose are excellent swimmers and often feed on aquatic plants. They can dive up to 20 feet deep in lakes and ponds.\n
+        During the mating season, bull moose can become quite aggressive, using their antlers to spar with rivals and establish dominance.""",
+    "Black Widow": 
+        """Black widow spiders are famous for their potent venom, which is 15 times stronger than that of a rattlesnake.\n
+        Female black widows are easily recognized by the red or orange hourglass-shaped marking on the underside of their shiny black abdomen.\n
+        The species gets its name from the female's tendency to consume the male after mating, although this behavior is not as common as once believed.\n
+        The silk produced by black widows is extremely strong and durable, comparable to the strength of some commercial-grade materials.\n
+        Black widows spin irregular, tangled webs in dark, undisturbed areas""",
     "Rattlesnake": 
-        """Female rattlesnakes carry and incubate their eggs inside of their bodies for around 90 days before giving birth to live young.
-        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake's brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.
-        Rattlesnakes have an inner ear structure without an eardrum, instead, snakes "hear" by sensing vibrations through their jawbone.
-        Once rattlesnakes grow out of their old skin and go through the molting process, their bodies naturally add an extra segment to their rattles each time.
+        """Female rattlesnakes carry and incubate their eggs inside of their bodies for around 90 days before giving birth to live young.\n
+        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake's brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.\n
+        Rattlesnakes have an inner ear structure without an eardrum, instead, snakes "hear" by sensing vibrations through their jawbone.\n
+        Once rattlesnakes grow out of their old skin and go through the molting process, their bodies naturally add an extra segment to their rattles each time.\n
         Their rattle is made up of various interlocking rings of keratin, the same material that human hair, skin, and nails are made of.""",
     "Mountain Lion": 
-        """Cougars can jump 18ft vertically and 40ft horizontally.
-        Utah division of wildlife resources estimates that 2,300 cougars live in Utah.
-        Highest cat: cougar spotted at 5,800 m (19,024 ft).
-        Cougar is an ambush predator--It either stalks its prey or waits for it to draw close before striking.
+        """Cougars can jump 18ft vertically and 40ft horizontally.\n
+        Utah division of wildlife resources estimates that 2,300 cougars live in Utah.\n
+        Highest cat: cougar spotted at 5,800 m (19,024 ft).\n
+        Cougar is an ambush predator--It either stalks its prey or waits for it to draw close before striking.\n
         The cubs stay with their mother for between 18 months to 2 years. The cubs drink their mother's milk for around 3 months, but begin to eat meat after 6 weeks.""",
     "Scorpion": 
-        """After birth, the newborn scorpions ride on their mother's back, where they remain protected until they molt for the first time.
-        Fossil evidence shows that scorpions have remained largely unchanged since the Carboniferous period (350-300 million years ago).
-        Modern scorpions can live as long as 25 years.
-        Scorpions engage in an elaborate courtship ritual known as the promenade à deux (literally, a walk for two).
+        """After birth, the newborn scorpions ride on their mother's back, where they remain protected until they molt for the first time.\n
+        Fossil evidence shows that scorpions have remained largely unchanged since the Carboniferous period (350-300 million years ago).\n
+        Modern scorpions can live as long as 25 years.\n
+        Scorpions engage in an elaborate courtship ritual known as the promenade à deux (literally, a walk for two).\n
         Of the nearly 2,000 known species of scorpions in the world, only 25 are known to produce venom powerful enough to pack a dangerous punch to an adult.""",
-    "Mosquito": "Stats for Mosquito",
-    "Raccoon": "Stats for Raccoon",
-    "Black Bear": "Stats for Black Bear",
-    "Coyote": "Stats for Coyote",
-    "Gila Monster": "Stats for Gila Monster",
-    "Logan Cropper": "infinity"
+    "Mosquito":
+        """Only female mosquitoes bite because they need the protein from blood to produce their eggs.\n
+        A mosquito's wings beat from 300 to 600 times per second.\n
+        Some female mosquitoes can drink their entire body weight in blood during a meal.\n
+        Mosquitoes lay their eggs in standing water and like to rest in shady spots and areas with low air flow\n
+        A mosquito can smell the carbon dioxide you exhale from about 60 to 75 feet away.""",
+    "Raccoon": 
+        """Raccoons have very sensitive nerves on the fingers of their front paws: wetting the skin is believed to increase the responsiveness of those nerves.\n
+        Although so many animal populations have been diminished because of human urbanization, raccoons have readily adapted to living alongside people.\n
+        After bats, raccoons are the second most frequently reported rabid wildlife species, according to the CDC.\n
+        Raccoons are great climbers: they're one of the few mammals that can descend vertical tree trunks headfirst.\n
+        The name Raccoon is from the Algonquin word arukhkun, meaning “he who rubs, scrubs and scratches with his hands.""",
+    "Black Bear": 
+        """In late November and early December, black bears head to their dens to sleep away the winter, or hibernate.\n
+        They typically live in forests and are excellent tree climbers, even sleeping in trees during the summer.\n
+        Black bear cubs stay with Mom for one to three years while she teaches them how to live in the wild.\n
+        Excellent swimmers: black bears can paddle at least a mile and a half in freshwater.\n
+        They can sprint up to 35 miles per hour.""",
+    "Coyote": 
+        """Coyotes are found in nearly every type of habitat in North America, from deserts and forests to urban areas.\n
+        Coyotes often forms strong family bonds: A pack typically consists of a mated pair and their offspring.\n
+        They are known for their distinctive vocalizations, including howls, yips, and barks - which they use to communicate.\n
+        Coyotes can run at speeds of up to 40 miles per hour: making them one of the fastest animals in North America.\n
+        They have excellent senses of smell, hearing, and sight, which help them hunt and avoid danger.""",
+    "Gila Monster": 
+        """The Gila monster is one of only two venomous lizards in North America. While not typically fatal to humans, its bite can be very painful.\n
+        They can store fat in their tails and live off these reserves for months.\n
+        Gila monsters use their keen sense of smell to locate nests of eggs or young birds and mammals, which form a large part of their diet.\n
+        Once a Gila monster bites, it tends to hold on, gnawing to help inject through grooves in its teeth.\n
+        Due to their slow reproductive rate and shrinking habitat, Gila monsters are protected by law in several states""",
+    "Logan Cropper": 
+        """President of the comedy club\n
+        Plays the drums in the salsa band\n
+        Can stare down the barrell of a laser and be fine\n
+        Plays Lucina in smash bros\n
+        Easily the most dangerous animal of them all"""
 }
 selected_indices = [0, 1]
 selected_animals = [None, None]
