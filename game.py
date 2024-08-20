@@ -31,7 +31,6 @@ SELECT_BUTTON = 0
 START_BUTTON = 7
 
 # Fonts
-
 font_title_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_select_fight_banner = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 150)
 font_select_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
@@ -39,78 +38,78 @@ font_select_animal_small = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 36)
 font_select_animal_large = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 48)
 font_fight_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_large = pygame.font.Font(None, 72)
-font_small = pygame.font.Font(None, 36)
+font_small = pygame.font.Font(None, 24)
 
 # Animals
 animals = ["Moose", "Black Widow", "Rattlesnake", "Mountain Lion", "Scorpion", "Mosquito", "Raccoon", "Black Bear", "Coyote", "Gila Monster"]
 animal_stats = {
     "Moose": 
-        """Moose are the largest members of the deer family: weighing up to 1,500 pounds and standing about 6 feet tall at the shoulder.\n
-        Male moose grow massive, broad antlers that can span up to 6 feet from tip to tip.\n
-        Moose have relatively poor eyesight, but they make up for it with a strong sense of smell and acute hearing.\n
-        Moose are excellent swimmers and often feed on aquatic plants. They can dive up to 20 feet deep in lakes and ponds.\n
-        During the mating season, bull moose can become quite aggressive, using their antlers to spar with rivals and establish dominance.""",
+        """\nMoose are the largest deer species, weighing up to 1,500 lbs and standing 6 feet tall.\n
+        Male moose grow antlers that can span up to 6 feet wide from tip to tip.\n
+        Moose have poor eyesight but make up for it with a strong sense of smell and hearing.\n
+        They are excellent swimmers and can dive up to 20 feet deep in lakes and ponds.\n
+        During mating season, bull moose can become aggressive, using antlers to spar.""",
     "Black Widow": 
-        """Black widow spiders are famous for their potent venom, which is 15 times stronger than that of a rattlesnake.\n
-        Female black widows are easily recognized by the red or orange hourglass-shaped marking on the underside of their shiny black abdomen.\n
-        The species gets its name from the female's tendency to consume the male after mating, although this behavior is not as common as once believed.\n
-        The silk produced by black widows is extremely strong and durable, comparable to the strength of some commercial-grade materials.\n
-        Black widows spin irregular, tangled webs in dark, undisturbed areas""",
+        """\nBlack widow venom is 15 times stronger than a rattlesnake's, making them highly toxic.\n
+        Female black widows are recognized by the red hourglass mark on their abdomen.\n
+        The name comes from the female's habit of consuming the male after mating.\n
+        Black widow silk is incredibly strong, comparable to commercial-grade materials.\n
+        They spin irregular, tangled webs in dark, undisturbed areas such as basements.""",
     "Rattlesnake": 
-        """Female rattlesnakes carry and incubate their eggs inside of their bodies for around 90 days before giving birth to live young.\n
-        Rattle Snakes have heat-sensitive pits on each side of their heads that transmit signals to the same area of the snake's brain as the optic nerve. It can “see” the heated image of its prey even in complete darkness.\n
-        Rattlesnakes have an inner ear structure without an eardrum, instead, snakes "hear" by sensing vibrations through their jawbone.\n
-        Once rattlesnakes grow out of their old skin and go through the molting process, their bodies naturally add an extra segment to their rattles each time.\n
-        Their rattle is made up of various interlocking rings of keratin, the same material that human hair, skin, and nails are made of.""",
+        """\nFemale rattlesnakes carry eggs inside their bodies and give birth to live young.\n
+        They have heat-sensitive pits that allow them to detect prey in complete darkness.\n
+        Rattlesnakes lack eardrums and "hear" by sensing vibrations through their jaws.\n
+        Their rattles grow an extra segment each time they shed their skin.\n
+        Rattles are made of keratin, the same material found in human hair and nails.""",
     "Mountain Lion": 
-        """Cougars can jump 18ft vertically and 40ft horizontally.\n
-        Utah division of wildlife resources estimates that 2,300 cougars live in Utah.\n
-        Highest cat: cougar spotted at 5,800 m (19,024 ft).\n
-        Cougar is an ambush predator--It either stalks its prey or waits for it to draw close before striking.\n
-        The cubs stay with their mother for between 18 months to 2 years. The cubs drink their mother's milk for around 3 months, but begin to eat meat after 6 weeks.""",
+        """\nCougars can jump 18 feet vertically and 40 feet horizontally, making them powerful hunters.\n
+        Utah is home to approximately 2,300 cougars, according to wildlife estimates.\n
+        The highest altitude cougar was spotted at 19,024 feet above sea level.\n
+        Cougars are ambush predators, stalking or waiting to strike their prey.\n
+        Cougar cubs stay with their mothers for 18 months to 2 years, learning survival skills.""",
     "Scorpion": 
-        """After birth, the newborn scorpions ride on their mother's back, where they remain protected until they molt for the first time.\n
-        Fossil evidence shows that scorpions have remained largely unchanged since the Carboniferous period (350-300 million years ago).\n
-        Modern scorpions can live as long as 25 years.\n
-        Scorpions engage in an elaborate courtship ritual known as the promenade à deux (literally, a walk for two).\n
-        Of the nearly 2,000 known species of scorpions in the world, only 25 are known to produce venom powerful enough to pack a dangerous punch to an adult.""",
+        """\nNewborn scorpions ride on their mother's back until their first molt for protection.\n
+        Scorpions have remained largely unchanged for 300 million years, according to fossils.\n
+        Modern scorpions can live for up to 25 years in the wild under favorable conditions.\n
+        Scorpions engage in a complex mating dance known as the promenade à deux.\n
+        Only 25 of the nearly 2,000 scorpion species have venom potent enough to harm humans.""",
     "Mosquito":
-        """Only female mosquitoes bite because they need the protein from blood to produce their eggs.\n
-        A mosquito's wings beat from 300 to 600 times per second.\n
-        Some female mosquitoes can drink their entire body weight in blood during a meal.\n
-        Mosquitoes lay their eggs in standing water and like to rest in shady spots and areas with low air flow\n
-        A mosquito can smell the carbon dioxide you exhale from about 60 to 75 feet away.""",
+        """\nOnly female mosquitoes bite to extract the protein from blood needed to produce eggs.\n
+        A mosquito's wings beat from 300 to 600 times per second, creating their distinctive buzz.\n
+        Female mosquitoes can consume their body weight in blood during a single feeding.\n
+        Mosquitoes lay their eggs in standing water and rest in shady, low-airflow areas.\n
+        They can detect the carbon dioxide in your breath from up to 75 feet away.""",
     "Raccoon": 
-        """Raccoons have very sensitive nerves on the fingers of their front paws: wetting the skin is believed to increase the responsiveness of those nerves.\n
-        Although so many animal populations have been diminished because of human urbanization, raccoons have readily adapted to living alongside people.\n
-        After bats, raccoons are the second most frequently reported rabid wildlife species, according to the CDC.\n
-        Raccoons are great climbers: they're one of the few mammals that can descend vertical tree trunks headfirst.\n
-        The name Raccoon is from the Algonquin word arukhkun, meaning “he who rubs, scrubs and scratches with his hands.""",
+        """\nRaccoon paws have very sensitive nerves, and wetting them increases their sensitivity.\n
+        Raccoons thrive in urban areas, adapting well to life alongside humans.\n
+        Raccoons are the second most frequently reported rabid wildlife species in the U.S.\n
+        They are excellent climbers and can descend tree trunks headfirst with ease.\n
+        The name "raccoon" comes from an Algonquin word meaning "one who rubs with his hands." """,
     "Black Bear": 
-        """In late November and early December, black bears head to their dens to sleep away the winter, or hibernate.\n
-        They typically live in forests and are excellent tree climbers, even sleeping in trees during the summer.\n
-        Black bear cubs stay with Mom for one to three years while she teaches them how to live in the wild.\n
-        Excellent swimmers: black bears can paddle at least a mile and a half in freshwater.\n
-        They can sprint up to 35 miles per hour.""",
+        """\nBlack bears hibernate from late November to early December to conserve energy in winter.\n
+        They typically live in forests and are excellent tree climbers, sometimes sleeping in trees.\n
+        Black bear cubs stay with their mother for one to three years, learning survival skills.\n
+        These bears are strong swimmers, capable of paddling over a mile in freshwater.\n
+        Black bears can sprint at speeds up to 35 miles per hour when threatened.""",
     "Coyote": 
-        """Coyotes are found in nearly every type of habitat in North America, from deserts and forests to urban areas.\n
-        Coyotes often forms strong family bonds: A pack typically consists of a mated pair and their offspring.\n
-        They are known for their distinctive vocalizations, including howls, yips, and barks - which they use to communicate.\n
-        Coyotes can run at speeds of up to 40 miles per hour: making them one of the fastest animals in North America.\n
-        They have excellent senses of smell, hearing, and sight, which help them hunt and avoid danger.""",
+        """\nCoyotes are highly adaptable and can be found in nearly every habitat in North America.\n
+        Coyotes form strong family bonds, with packs usually consisting of a mated pair and offspring.\n
+        They are known for their distinctive vocalizations, including howls, yips, and barks.\n
+        Coyotes can run at speeds of up to 40 miles per hour, making them very fast predators.\n
+        Their excellent senses of smell, hearing, and sight help them hunt and avoid danger.""",
     "Gila Monster": 
-        """The Gila monster is one of only two venomous lizards in North America. While not typically fatal to humans, its bite can be very painful.\n
-        They can store fat in their tails and live off these reserves for months.\n
-        Gila monsters use their keen sense of smell to locate nests of eggs or young birds and mammals, which form a large part of their diet.\n
-        Once a Gila monster bites, it tends to hold on, gnawing to help inject through grooves in its teeth.\n
-        Due to their slow reproductive rate and shrinking habitat, Gila monsters are protected by law in several states""",
+        """\nGila monsters are one of only two venomous lizards in North America, with a painful bite.\n
+        They can store fat in their tails, surviving for months on these reserves without food.\n
+        Gila monsters use their keen sense of smell to locate nests of eggs and small prey.\n
+        Once a Gila monster bites, it tends to hold on, gnawing to inject venom through its teeth.\n
+        Due to their slow reproduction and shrinking habitat, they are protected by law.""",
     "Logan Cropper": 
-        """President of the comedy club\n
-        Plays the drums in the salsa band\n
-        Can stare down the barrell of a laser and be fine\n
-        Plays Lucina in smash bros\n
-        Easily the most dangerous animal of them all"""
+        """\nPresident of the comedy club and drummer in a salsa band, Logan is a multi-talented guy.\n
+        Known for his fearless attitude, he can stare down a laser without flinching.\n
+        Logan is a skilled gamer, often playing Lucina in Smash Bros tournaments.\n
+        With his diverse skills and confidence, Logan is the most dangerous "animal" of all."""
 }
+
 selected_indices = [0, 1]
 selected_animals = [None, None]
 animal_selected = [False, False]  # Track if an animal is selected for each player
@@ -127,7 +126,9 @@ animal_images = {
     "Black Bear": pygame.image.load("images/black_bear.png"),
     "Coyote": pygame.image.load("images/coyote.png"),
     "Gila Monster": pygame.image.load("images/gila_monster.png"),
-    #"Logan Cropper": None # TODO: Add Logan Cropper image
+    #"Logan Cropper": None
+
+ # TODO: Add Logan Cropper image
 }
 animal_sprites = {
     "Moose": pygame.image.load("sprites/moose.png"),
@@ -164,9 +165,16 @@ select_border_weight = 10
 select_selected_border_weight = 30
 
 last_input_time = [0,0]  # Last time input was received for each player
-debounce_delay = 0.05  # 200 milliseconds debounce delay
+debounce_delay = 0.15  # 200 milliseconds debounce delay
 
 joysticks = {}
+
+# Function to draw multiline text
+def draw_multiline_text(text, font, color, surface, x, y, line_height):
+    lines = text.split('\n')  # Split the text into lines based on the newline character
+    for i, line in enumerate(lines):
+        line_surface = font.render(line, True, color)
+        surface.blit(line_surface, (x, y + i * line_height))
 
 # Functions
 def draw_title_screen():
@@ -238,9 +246,8 @@ def draw_character_select():
         if animal:
             origin = (20 + SCREEN_WIDTH / 2 * i, select_header_height + select_box_height * 2 + 20)
             animal_text = font_select_animal_large.render(animal, True, WHITE)
-            stats_text = font_small.render(animal_stats[animal], True, WHITE)
             screen.blit(animal_text, origin)
-            screen.blit(stats_text, (origin[0], origin[1] + 50))
+            draw_multiline_text(animal_stats[animal], font_small, WHITE, screen, origin[0], origin[1] + 50, font_small.get_height())
 
             # Draw the selected animal image next to the stats
             image = animal_images[animal]
@@ -297,57 +304,66 @@ def update_sprite_positions():
     global animation_state, step_count, turn_count
     global active_sprite, move_count, moves
     global sprite_positions, sprite_home_positions, sprite_attack_state
+    global losing_sprite, winning_sprite
+
     if animation_state == STATE_APPEAR:
-        if step_count > 5:
-            animation_state = STATE_STEP_CLOSER
-            step_count = 0
-        step_count += 1
+        # Initial position setup from edges of the screen
+        sprite_positions[0] = (-sprite_size[0], sprite_positions[0][1])  # Start off-screen left
+        sprite_positions[1] = (SCREEN_WIDTH, sprite_positions[1][1])     # Start off-screen right
+        animation_state = STATE_STEP_CLOSER
 
     if animation_state == STATE_STEP_CLOSER:
-        sprite_positions[0] = (sprite_positions[0][0] + 100, sprite_positions[0][1])
-        sprite_positions[1] = (sprite_positions[1][0] - 100, sprite_positions[1][1])
-        step_count += 1
-        if step_count > 3:  # Number of steps to take
-            animation_state = STATE_FIGHT
+        # Move sprites towards each other
+        sprite_positions[0] = (sprite_positions[0][0] + 20, sprite_positions[0][1])
+        sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
+        
+        # Check if they have met in the center
+        if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
+            animation_state = STATE_BUMP
             sprite_home_positions = sprite_positions.copy()
+            step_count = 0
+            turn_count = 0
+            # Randomly choose which sprite wins
+            winning_sprite = random.choice([0, 1])
+            losing_sprite = 1 - winning_sprite
+
+    if animation_state == STATE_BUMP:
+        # Sprites bump into each other a few times
+        bump_distance = 20  # How far they move back and forth
+        if step_count % 2 == 0:
+            sprite_positions[0] = (sprite_home_positions[0][0] - bump_distance, sprite_positions[0][1])
+            sprite_positions[1] = (sprite_home_positions[1][0] + bump_distance, sprite_positions[1][1])
+        else:
+            sprite_positions = sprite_home_positions.copy()
+
+        step_count += 1
+
+        if step_count >= 6:  # Number of bumps (3 bumps here)
+            animation_state = STATE_FIGHT
             step_count = 0
 
     if animation_state == STATE_FIGHT:
-        if turn_count < 4:
-            if step_count == 0:
-                # Choose next move set
-                active_sprite = random.choice([0, 1])
-                move_count = random.randint(1, 3)
-                moves = [random.choice([PUNCH, KICK]) for _ in range(move_count)]
-                step_count += 1
-
-            elif step_count < move_count:
-                if sprite_attack_state == BACK:
-                    # Perform next move
-                    if moves[step_count] == PUNCH:
-                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1])
-                        sprite_attack_state = PUNCH
-                    elif moves[step_count] == KICK:
-                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1] + 150)
-                        sprite_attack_state = KICK
-                    step_count += 1
-                else:
-                    # Return to home position
-                    sprite_positions[active_sprite] = sprite_home_positions[active_sprite]
-                    sprite_attack_state = BACK
-
-            else: 
-                step_count = 0
-                turn_count += 1
-
+        if step_count == 0:
+            # Winning sprite continues moving forward
+            sprite_positions[winning_sprite] = (sprite_positions[winning_sprite][0] + 30, sprite_positions[winning_sprite][1])
+            step_count += 1
         else:
-            turn_count = 0
-            animation_state = STATE_FINISHED
+            # Losing sprite is propelled up and away
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 10, sprite_positions[losing_sprite][1])
+
+            # Check if the losing sprite is off-screen
+            if sprite_positions[losing_sprite][1] < -sprite_size[1]:
+                animation_state = STATE_FINISHED
+                step_count = 0
 
     if animation_state == STATE_FINISHED:
+        # Fight is over, you can display a "Winner" message or reset the screen
         pass
-    
-    time.sleep(0.1)
+
+    time.sleep(0.05)
+
+
 
 def handle_title_screen_events(event):
     global current_state
@@ -361,7 +377,10 @@ def handle_title_screen_events(event):
 import time
 
 # Debounce delay in seconds
-debounce_delay = 0.2
+debounce_delay = 0.0
+
+# Dictionary to store the last direction for each joystick
+last_direction = {0: [0, 0], 1: [0, 0]}
 
 # Dictionary to store the last processed time for each joystick
 last_processed_time = {}
@@ -385,7 +404,8 @@ def handle_character_select_events(event):
     if event.type == pygame.JOYBUTTONDOWN:
         # Detect which joystick button was pressed
         button = event.button
-        player = 1 if jid == 0 else 0
+        player = 0 if jid == 0 else 1
+        print(f"Player {player+1} pressed button {button}")
 
         # Toggle selection for the current player
         if button == SELECT_BUTTON:
@@ -402,14 +422,23 @@ def handle_character_select_events(event):
             jid = joystick.get_instance_id()
             axes = [round(joystick.get_axis(0)), round(joystick.get_axis(1))]
             player = 0 if jid == 0 else 1
+            
             if not animal_selected[player]:
-                if axes[1]:
-                    selected_indices[player] = (selected_indices[player] - axes[1]) % 10
-                    sound_playerselect_move.play()
-                if axes[0]:
-                    selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
-                    sound_playerselect_move.play()
-    print(selected_indices)
+                # Check if the current direction is different from the last direction
+                if axes[1] != last_direction[player][1]:
+                    if axes[1]:
+                        selected_indices[player] = (selected_indices[player] - axes[1]) % 10
+                        sound_playerselect_move.play()
+                    # Update the last direction for the Y-axis
+                    last_direction[player][1] = axes[1]
+
+                if axes[0] != last_direction[player][0]:
+                    if axes[0]:
+                        selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
+                        sound_playerselect_move.play()
+                    # Update the last direction for the X-axis
+                    last_direction[player][0] = axes[0]
+    #print(selected_indices)
     pygame.event.clear()
 
 def handle_fight_screen_events(event):
