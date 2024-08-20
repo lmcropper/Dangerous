@@ -304,57 +304,49 @@ def update_sprite_positions():
     global animation_state, step_count, turn_count
     global active_sprite, move_count, moves
     global sprite_positions, sprite_home_positions, sprite_attack_state
+    global losing_sprite, winning_sprite
+
     if animation_state == STATE_APPEAR:
-        if step_count > 5:
-            animation_state = STATE_STEP_CLOSER
-            step_count = 0
-        step_count += 1
+        # Initial position setup from edges of the screen
+        sprite_positions[0] = (-sprite_size[0], sprite_positions[0][1])  # Start off-screen left
+        sprite_positions[1] = (SCREEN_WIDTH, sprite_positions[1][1])     # Start off-screen right
+        animation_state = STATE_STEP_CLOSER
 
     if animation_state == STATE_STEP_CLOSER:
-        sprite_positions[0] = (sprite_positions[0][0] + 100, sprite_positions[0][1])
-        sprite_positions[1] = (sprite_positions[1][0] - 100, sprite_positions[1][1])
-        step_count += 1
-        if step_count > 3:  # Number of steps to take
+        # Move sprites towards each other
+        sprite_positions[0] = (sprite_positions[0][0] + 20, sprite_positions[0][1])
+        sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
+        
+        # Check if they have met in the center
+        if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
             animation_state = STATE_FIGHT
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
+            # Randomly choose which sprite wins
+            winning_sprite = random.choice([0, 1])
+            losing_sprite = 1 - winning_sprite
 
     if animation_state == STATE_FIGHT:
-        if turn_count < 4:
-            if step_count == 0:
-                # Choose next move set
-                active_sprite = random.choice([0, 1])
-                move_count = random.randint(1, 3)
-                moves = [random.choice([PUNCH, KICK]) for _ in range(move_count)]
-                step_count += 1
-
-            elif step_count < move_count:
-                if sprite_attack_state == BACK:
-                    # Perform next move
-                    if moves[step_count] == PUNCH:
-                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1])
-                        sprite_attack_state = PUNCH
-                    elif moves[step_count] == KICK:
-                        sprite_positions[active_sprite] = (sprite_positions[active_sprite][0] + 150, sprite_positions[active_sprite][1] + 150)
-                        sprite_attack_state = KICK
-                    step_count += 1
-                else:
-                    # Return to home position
-                    sprite_positions[active_sprite] = sprite_home_positions[active_sprite]
-                    sprite_attack_state = BACK
-
-            else: 
-                step_count = 0
-                turn_count += 1
-
+        if step_count == 0:
+            # Winning sprite continues moving forward
+            sprite_positions[winning_sprite] = (sprite_positions[winning_sprite][0] + 30, sprite_positions[winning_sprite][1])
+            step_count += 1
         else:
-            turn_count = 0
-            animation_state = STATE_FINISHED
+            # Losing sprite is propelled up and away
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 10, sprite_positions[losing_sprite][1])
+
+            # Check if the losing sprite is off-screen
+            if sprite_positions[losing_sprite][1] < -sprite_size[1]:
+                animation_state = STATE_FINISHED
+                step_count = 0
 
     if animation_state == STATE_FINISHED:
+        # Fight is over, you can display a "Winner" message or reset the screen
         pass
-    
+
     time.sleep(0.1)
+
 
 def handle_title_screen_events(event):
     global current_state
