@@ -383,6 +383,7 @@ def handle_character_select_events(event):
             last_processed_time[jid] = 0
         
         # Check if enough time has passed since the last processed input
+        debounce_delay = 0.1 if event.type == pygame.JOYBUTTONDOWN else 0.2
         if current_time - last_processed_time[jid] < debounce_delay:
             return
         
@@ -392,9 +393,9 @@ def handle_character_select_events(event):
     if event.type == pygame.JOYBUTTONDOWN:
         # Detect which joystick button was pressed
         button = event.button
-        player = 1 if jid == 0 else 0
+        player = 0 if jid == 0 else 1
         print(f"Player {player+1} pressed button {button}")
-        
+
         # Toggle selection for the current player
         if button == SELECT_BUTTON:
             animal_selected[player] = not animal_selected[player]
@@ -417,7 +418,7 @@ def handle_character_select_events(event):
                 if axes[0]:
                     selected_indices[player] = (selected_indices[player] + axes[0] * 5) % 10
                     sound_playerselect_move.play()
-    print(selected_indices)
+    #print(selected_indices)
     pygame.event.clear()
 
 def handle_fight_screen_events(event):
