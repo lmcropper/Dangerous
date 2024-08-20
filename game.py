@@ -362,7 +362,7 @@ def update_sprite_positions():
         # Fight is over, you can display a "Winner" message or reset the screen
         pass
 
-    time.sleep(0.05)
+    time.sleep(0.01)
 
 
 
