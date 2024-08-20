@@ -37,7 +37,7 @@ font_select_fight_banner = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 15
 font_select_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_select_animal_small = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 36)
 font_select_animal_large = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 48)
-font_fight_title = pygame.font.Font("./fonts/Platinum Sign OVer.ttf", 74)
+font_fight_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_large = pygame.font.Font(None, 72)
 font_small = pygame.font.Font(None, 36)
 
