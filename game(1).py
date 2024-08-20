@@ -393,7 +393,8 @@ def handle_character_select_events(event):
         # Detect which joystick button was pressed
         button = event.button
         player = 1 if jid == 0 else 0
-
+        print(f"Player {player+1} pressed button {button}")
+        
         # Toggle selection for the current player
         if button == SELECT_BUTTON:
             animal_selected[player] = not animal_selected[player]
