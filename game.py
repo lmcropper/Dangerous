@@ -313,9 +313,9 @@ def draw_fight_screen():
 
 
 
+
 def update_sprite_positions():
     global animation_state, step_count, turn_count
-    global active_sprite, move_count, moves
     global sprite_positions, sprite_home_positions, sprite_attack_state
     global losing_sprite, winning_sprite, losing_sprite_angle
 
@@ -336,9 +336,10 @@ def update_sprite_positions():
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
             turn_count = 0
-            # Randomly choose which sprite wins
-            winning_sprite = random.choice([0, 1])
-            losing_sprite = 1 - winning_sprite
+
+            # Determine winning and losing sprite based on index
+            winning_sprite = 0  # The sprite with the smaller index wins
+            losing_sprite = 1
             losing_sprite_angle = 0  # Initialize rotation angle
 
     if animation_state == STATE_BUMP:
@@ -379,6 +380,7 @@ def update_sprite_positions():
         pass
 
     time.sleep(0.05)  # Smoother animation with shorter sleep
+
 
 
 
