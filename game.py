@@ -318,8 +318,8 @@ def update_sprite_positions():
 
     if animation_state == STATE_STEP_CLOSER:
         # Move sprites towards each other
-        sprite_positions[0] = (sprite_positions[0][0] + 10, sprite_positions[0][1])  # Slower approach
-        sprite_positions[1] = (sprite_positions[1][0] - 10, sprite_positions[1][1])
+        sprite_positions[0] = (sprite_positions[0][0] + 20, sprite_positions[0][1])  # Slower approach
+        sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
         
         # Check if they have met in the center
         if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
@@ -354,7 +354,7 @@ def update_sprite_positions():
         else:
             # Losing sprite is propelled up and away
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 15)
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] - 5, sprite_positions[losing_sprite][1])
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
