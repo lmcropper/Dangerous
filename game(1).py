@@ -319,12 +319,28 @@ def update_sprite_positions():
         
         # Check if they have met in the center
         if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
-            animation_state = STATE_FIGHT
+            animation_state = STATE_BUMP
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
+            turn_count = 0
             # Randomly choose which sprite wins
             winning_sprite = random.choice([0, 1])
             losing_sprite = 1 - winning_sprite
+
+    if animation_state == STATE_BUMP:
+        # Sprites bump into each other a few times
+        bump_distance = 20  # How far they move back and forth
+        if step_count % 2 == 0:
+            sprite_positions[0] = (sprite_home_positions[0][0] - bump_distance, sprite_positions[0][1])
+            sprite_positions[1] = (sprite_home_positions[1][0] + bump_distance, sprite_positions[1][1])
+        else:
+            sprite_positions = sprite_home_positions.copy()
+
+        step_count += 1
+
+        if step_count >= 6:  # Number of bumps (3 bumps here)
+            animation_state = STATE_FIGHT
+            step_count = 0
 
     if animation_state == STATE_FIGHT:
         if step_count == 0:
@@ -345,7 +361,8 @@ def update_sprite_positions():
         # Fight is over, you can display a "Winner" message or reset the screen
         pass
 
-    time.sleep(0.1)
+    time.sleep(0.05)
+
 
 
 def handle_title_screen_events(event):
