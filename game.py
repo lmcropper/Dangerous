@@ -356,7 +356,7 @@ def update_sprite_positions():
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 40)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
 
             # Check if the losing sprite is off-screen
