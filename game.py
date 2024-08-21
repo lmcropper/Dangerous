@@ -328,8 +328,9 @@ def update_sprite_positions():
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
             turn_count = 0
-            # Randomly choose which sprite wins
-            winning_sprite = random.choice([0, 1])
+            # Determine the winner based on which selected animal appears first in the 'animals' array
+            selected_animal_indices = [animals.index(animal) for animal in selected_animals]
+            winning_sprite = selected_animal_indices.index(min(selected_animal_indices))
             losing_sprite = 1 - winning_sprite
 
     if animation_state == STATE_BUMP:
