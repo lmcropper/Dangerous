@@ -309,7 +309,6 @@ def update_sprite_positions():
     global active_sprite, move_count, moves
     global sprite_positions, sprite_home_positions, sprite_attack_state
     global losing_sprite, winning_sprite
-    global losing_sprite_angle  # New global variable to track the rotation angle
 
     if animation_state == STATE_APPEAR:
         # Initial position setup from edges of the screen
@@ -328,13 +327,9 @@ def update_sprite_positions():
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
             turn_count = 0
-
             # Randomly choose which sprite wins
             winning_sprite = random.choice([0, 1])
             losing_sprite = 1 - winning_sprite
-
-            # Initialize the rotation angle
-            losing_sprite_angle = 0
 
     if animation_state == STATE_BUMP:
         # Sprites bump into each other a few times
@@ -358,17 +353,9 @@ def update_sprite_positions():
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 20)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 15, sprite_positions[losing_sprite][1])
-
-            # Rotate the losing sprite
-            losing_sprite_angle += 15  # Increase rotation angle for each frame
-
-            # Rotate the sprite and keep it centered
-            original_sprite = animal_sprites[selected_animals[losing_sprite]]
-            rotated_sprite = pygame.transform.rotate(original_sprite, losing_sprite_angle)
-            rotated_rect = rotated_sprite.get_rect(center=sprite_positions[losing_sprite])
-            sprite_positions[losing_sprite] = rotated_rect.topleft
+            pygame.transform.rotate(losing_sprite, 15)
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
@@ -380,7 +367,6 @@ def update_sprite_positions():
         pass
 
     time.sleep(0.05)  # Smoother animation with shorter sleep
-
 
 
 
