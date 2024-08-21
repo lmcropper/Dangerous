@@ -170,6 +170,22 @@ debounce_delay = 0.15  # 200 milliseconds debounce delay
 
 joysticks = {}
 
+# Key mappings
+KEYBOARD_KEYS = {
+    "P1_SELECT": pygame.K_RETURN,    # Player 1 selects an animal
+    "P2_SELECT": pygame.K_SPACE,     # Player 2 selects an animal
+    "P1_START": pygame.K_r,          # Player 1 starts the game
+    "P2_START": pygame.K_t,          # Player 2 starts the game
+    "P1_UP": pygame.K_w,             # Player 1 moves up
+    "P1_DOWN": pygame.K_s,           # Player 1 moves down
+    "P1_LEFT": pygame.K_a,           # Player 1 moves left
+    "P1_RIGHT": pygame.K_d,          # Player 1 moves right
+    "P2_UP": pygame.K_UP,            # Player 2 moves up
+    "P2_DOWN": pygame.K_DOWN,        # Player 2 moves down
+    "P2_LEFT": pygame.K_LEFT,        # Player 2 moves left
+    "P2_RIGHT": pygame.K_RIGHT       # Player 2 moves right
+}
+
 # Function to draw multiline text
 def draw_multiline_text(text, font, color, surface, x, y, line_height):
     lines = text.split('\n')  # Split the text into lines based on the newline character
@@ -304,6 +320,25 @@ def draw_fight_screen():
             dummy_sprite = font_large.render("?", True, BLACK)
             screen.blit(dummy_sprite, sprite_positions[i])
 
+    if animation_state == STATE_FINISHED:
+        selected_animal_indices = [animals.index(animal) for animal in selected_animals]
+        winning_sprite = selected_animal_indices.index(min(selected_animal_indices))
+        # Get the winning animal
+        winning_animal = selected_animals[winning_sprite]
+        winning_description = f"The {winning_animal} is the number {animals.index(winning_animal) + 1} most dangerous animal!"
+
+        # Display the winning animal's name
+        end_banner_height = 200
+        end_text = font_select_animal_large.render(winning_description, True, WHITE)
+        pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 2 - end_banner_height / 2, SCREEN_WIDTH, end_banner_height), 0)
+        screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)))
+
+        # Display the winning animal's image
+        #if winning_animal in animal_images.keys():
+        #    winning_image = animal_images[winning_animal]
+        #    scaled_image = pygame.transform.scale(winning_image, (200, 200))
+        #    screen.blit(scaled_image, (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100))
+
 
 def update_sprite_positions():
     global animation_state, step_count, turn_count
@@ -356,17 +391,31 @@ def update_sprite_positions():
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 40)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 70)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
 
-            # Check if the losing sprite is off-screen
-            if sprite_positions[losing_sprite][1] < -sprite_size[1]:
-                animation_state = STATE_FINISHED
-                step_count = 0
+        # Check if the losing sprite has gone off the top of the screen
+        if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
+            animation_state = STATE_FINISHED
+            step_count = 0
+
 
     if animation_state == STATE_FINISHED:
-        # Fight is over, you can display a "Winner" message or reset the screen
-        pass
+        # Get the winning animal
+        winning_animal = selected_animals[winning_sprite]
+        winning_description = "The " + winning_animal + " is the number " + str(animals.index(winning_animal)) + " most dangerous animal!"
+
+        # Display the winning animal's name
+        end_banner_height = 200
+        end_text = font_select_fight_banner.render(winning_description, True, WHITE)
+        pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 2 - end_banner_height / 2, SCREEN_WIDTH, end_banner_height), 0)
+        screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)))
+
+        # Display the winning animal's image
+        if winning_animal in animal_images.keys():
+            winning_image = animal_images[winning_animal]
+            scaled_image = pygame.transform.scale(winning_image, (200, 200))
+            screen.blit(scaled_image, (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100))
 
     time.sleep(0.05)  # Smoother animation with shorter sleep
 
@@ -446,6 +495,58 @@ def handle_character_select_events(event):
                         sound_playerselect_move.play()
                     # Update the last direction for the X-axis
                     last_direction[player][0] = axes[0]
+
+    # Handle keyboard inputs
+    if event.type == pygame.KEYDOWN:
+        # Player 1 key events
+        if event.key == KEYBOARD_KEYS["P1_SELECT"]:
+            animal_selected[0] = not animal_selected[0]
+            sound_playerselect_select.play()
+        elif event.key == KEYBOARD_KEYS["P1_START"]:
+            if all(animal_selected):
+                sound_playerselect_start.play()
+                current_state = FIGHT_SCREEN
+        elif event.key == KEYBOARD_KEYS["P1_UP"]:
+            if not animal_selected[0]:
+                selected_indices[0] = (selected_indices[0] - 5) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P1_DOWN"]:
+            if not animal_selected[0]:
+                selected_indices[0] = (selected_indices[0] + 5) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P1_LEFT"]:
+            if not animal_selected[0]:
+                selected_indices[0] = (selected_indices[0] - 1) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P1_RIGHT"]:
+            if not animal_selected[0]:
+                selected_indices[0] = (selected_indices[0] + 1) % 10
+                sound_playerselect_move.play()
+
+        # Player 2 key events
+        if event.key == KEYBOARD_KEYS["P2_SELECT"]:
+            animal_selected[1] = not animal_selected[1]
+            sound_playerselect_select.play()
+        elif event.key == KEYBOARD_KEYS["P2_START"]:
+            if all(animal_selected):
+                sound_playerselect_start.play()
+                current_state = FIGHT_SCREEN
+        elif event.key == KEYBOARD_KEYS["P2_UP"]:
+            if not animal_selected[1]:
+                selected_indices[1] = (selected_indices[1] - 5) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P2_DOWN"]:
+            if not animal_selected[1]:
+                selected_indices[1] = (selected_indices[1] + 5) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P2_LEFT"]:
+            if not animal_selected[1]:
+                selected_indices[1] = (selected_indices[1] - 1) % 10
+                sound_playerselect_move.play()
+        elif event.key == KEYBOARD_KEYS["P2_RIGHT"]:
+            if not animal_selected[1]:
+                selected_indices[1] = (selected_indices[1] + 1) % 10
+                sound_playerselect_move.play()
     #print(selected_indices)
     pygame.event.clear()
 
