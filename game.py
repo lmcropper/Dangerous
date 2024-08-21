@@ -38,7 +38,7 @@ font_select_animal_small = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 36)
 font_select_animal_large = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 48)
 font_fight_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_large = pygame.font.Font(None, 72)
-font_mid = pygame.font.Font(None, 30)
+font_mid = pygame.font.Font(None, 25)
 font_small = pygame.font.Font(None, 20)
 
 # Animals
@@ -119,8 +119,7 @@ animal_descriptions = {
         Moose encounters are common in Utah’s mountainous regions, and it’s best to keep a safe distance if you spot one in the wild.\n
         But if you do run into a moose, you should look out for these signs of aggression: licking their long snouts, their ears pinned back, lowering their head as if to charge.\n""",
     "Black Widow": """
-        Comparable to several other of our previous dangerous animals,\n 
-        the infamous black widow spider has distinctive markings one should keep an eye out for.\n 
+        The infamous black widow spider has distinctive markings one should keep an eye out for.\n 
         The blood red hourglass markings on the spider’s back is a clear sign you should avoid these creatures at all costs.\n
         A black widow sting is one of the worst insect bites a person can ever experience.\n 
         Symptoms include nausea, headaches, vomiting, hallucinations, seizures, muscle spasms, fever, and possibly even shock.\n
@@ -433,10 +432,10 @@ def draw_fight_screen():
         winning_description = f"The {winning_animal} is Utah's number {animals.index(winning_animal) + 1} most dangerous animal!"
 
         # Display the winning animal's image
-        #if winning_animal in animal_images.keys():
-        #    winning_image = animal_full_images[winning_animal]
-        #    #scaled_image = pygame.transform.scale(winning_image, (200, 200))
-        #    screen.blit(winning_image, (SCREEN_WIDTH / 2 - 800, SCREEN_HEIGHT / 2 + 100))
+        if winning_animal in animal_images.keys():
+            winning_image = animal_full_images[winning_animal]
+            #scaled_image = pygame.transform.scale(winning_image, (300, 300))
+            screen.blit(winning_image, (SCREEN_WIDTH / 2 - 925, SCREEN_HEIGHT / 2 - 200))
 
         end_banner_height = 200
         end_text = font_select_animal_large.render(winning_description, True, WHITE)
@@ -444,7 +443,7 @@ def draw_fight_screen():
         screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)))
 
         animal_description = animal_descriptions[winning_animal]
-        draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 2 + 100, 20)
+        draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 + 100, 20)
 
 
 
