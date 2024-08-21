@@ -155,6 +155,7 @@ sound_title_start = pygame.mixer.Sound("sounds/title_start.wav")
 sound_playerselect_start = pygame.mixer.Sound("sounds/playerselect_start.wav")
 sound_playerselect_move = pygame.mixer.Sound("sounds/playerselect_move.wav")
 sound_playerselect_select = pygame.mixer.Sound("sounds/playerselect_select.wav")
+sound_smash_attack = pygame.mixer.Sound("sounds/final_smash_attack.wav")
 
 # Animal Select global params
 select_background_color = (200, 200, 200)
@@ -344,6 +345,7 @@ def update_sprite_positions():
 
         if step_count >= 12:  # Increase the number of steps for smoother bumps
             animation_state = STATE_FIGHT
+            sound_smash_attack.play()
             step_count = 0
 
     if animation_state == STATE_FIGHT:
@@ -353,9 +355,8 @@ def update_sprite_positions():
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 20)
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 15, sprite_positions[losing_sprite][1])
-            pygame.transform.rotate(animal_sprites[selected_animals[losing_sprite]], 15)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 30)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
