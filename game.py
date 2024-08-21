@@ -355,7 +355,7 @@ def update_sprite_positions():
             # Losing sprite is propelled up and away
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 20)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 15, sprite_positions[losing_sprite][1])
-            pygame.transform.rotate(losing_sprite, 15)
+            pygame.transform.rotate(sprite_positions[losing_sprite], 15)
 
             # Check if the losing sprite is off-screen
             if sprite_positions[losing_sprite][1] < -sprite_size[1]:
