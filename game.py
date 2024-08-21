@@ -127,9 +127,23 @@ animal_images = {
     "Coyote": pygame.image.load("images/coyote.png"),
     "Gila Monster": pygame.image.load("images/gila_monster.png"),
     #"Logan Cropper": None
+}
+
+animal_full_images = {
+    "Moose": pygame.image.load("images/full_images/moose.png"),
+    "Black Widow": pygame.image.load("images/full_images/black_widow.png"),
+    "Rattlesnake": pygame.image.load("images/full_images/rattlesnake.png"),
+    "Mountain Lion": pygame.image.load("images/full_images/mountain_lion.png"),
+    "Scorpion": pygame.image.load("images/full_images/scorpion.png"),
+    "Mosquito": pygame.image.load("images/full_images/mosquito.png"),
+    "Raccoon": pygame.image.load("images/full_images/raccoon.png"),
+    "Black Bear": pygame.image.load("images/full_images/black_bear.png"),
+    "Coyote": pygame.image.load("images/full_images/coyote.png"),
+    "Gila Monster": pygame.image.load("images/full_images/gila_monster.png"),
+    #"Logan Cropper": None
+}
 
  # TODO: Add Logan Cropper image
-}
 animal_sprites = {
     "Moose": pygame.image.load("sprites/moose.png"),
     "Black Widow": pygame.image.load("sprites/black_widow.png"),
@@ -327,17 +341,18 @@ def draw_fight_screen():
         winning_animal = selected_animals[winning_sprite]
         winning_description = f"The {winning_animal} is the number {animals.index(winning_animal) + 1} most dangerous animal!"
 
-        # Display the winning animal's name
-        end_banner_height = 200
-        end_text = font_select_animal_large.render(winning_description, True, WHITE)
-        pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 2 - end_banner_height / 2, SCREEN_WIDTH, end_banner_height), 0)
-        screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)))
-
         # Display the winning animal's image
         #if winning_animal in animal_images.keys():
-        #    winning_image = animal_images[winning_animal]
-        #    scaled_image = pygame.transform.scale(winning_image, (200, 200))
-        #    screen.blit(scaled_image, (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100))
+        #    winning_image = animal_full_images[winning_animal]
+        #    #scaled_image = pygame.transform.scale(winning_image, (200, 200))
+        #    screen.blit(winning_image, (SCREEN_WIDTH / 2 - 800, SCREEN_HEIGHT / 2 + 100))
+
+        end_banner_height = 200
+        end_text = font_select_animal_large.render(winning_description, True, WHITE)
+        pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 5 - end_banner_height / 2, SCREEN_WIDTH, end_banner_height), 0)
+        screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)))
+
+
 
 
 def update_sprite_positions():
@@ -391,7 +406,7 @@ def update_sprite_positions():
             step_count += 1
         else:
             # Losing sprite is propelled up and away
-            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 70)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 80)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
 
         # Check if the losing sprite has gone off the top of the screen
