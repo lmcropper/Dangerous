@@ -38,73 +38,164 @@ font_select_animal_small = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 36)
 font_select_animal_large = pygame.font.Font("./fonts/WIDEAWAKE.ttf", 48)
 font_fight_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_large = pygame.font.Font(None, 72)
-font_small = pygame.font.Font(None, 24)
+font_mid = pygame.font.Font(None, 30)
+font_small = pygame.font.Font(None, 20)
 
 # Animals
 animals = ["Moose", "Black Widow", "Rattlesnake", "Mountain Lion", "Scorpion", "Mosquito", "Raccoon", "Black Bear", "Coyote", "Gila Monster"]
 animal_stats = {
-    "Moose": 
-        """\nMoose are the largest deer species, weighing up to 1,500 lbs and standing 6 feet tall.\n
+    "Moose": """ 
+        Moose are the largest deer species, weighing up to 1,500 lbs and standing 6 feet tall.\n
         Male moose grow antlers that can span up to 6 feet wide from tip to tip.\n
         Moose have poor eyesight but make up for it with a strong sense of smell and hearing.\n
         They are excellent swimmers and can dive up to 20 feet deep in lakes and ponds.\n
         During mating season, bull moose can become aggressive, using antlers to spar.""",
-    "Black Widow": 
-        """\nBlack widow venom is 15 times stronger than a rattlesnake's, making them highly toxic.\n
+    "Black Widow": """ 
+        Black widow venom is 15 times stronger than a rattlesnake's, making them highly toxic.\n
         Female black widows are recognized by the red hourglass mark on their abdomen.\n
         The name comes from the female's habit of consuming the male after mating.\n
         Black widow silk is incredibly strong, comparable to commercial-grade materials.\n
         They spin irregular, tangled webs in dark, undisturbed areas such as basements.""",
-    "Rattlesnake": 
-        """\nFemale rattlesnakes carry eggs inside their bodies and give birth to live young.\n
+    "Rattlesnake": """ 
+        Female rattlesnakes carry eggs inside their bodies and give birth to live young.\n
         They have heat-sensitive pits that allow them to detect prey in complete darkness.\n
         Rattlesnakes lack eardrums and "hear" by sensing vibrations through their jaws.\n
         Their rattles grow an extra segment each time they shed their skin.\n
         Rattles are made of keratin, the same material found in human hair and nails.""",
-    "Mountain Lion": 
-        """\nCougars can jump 18 feet vertically and 40 feet horizontally, making them powerful hunters.\n
+    "Mountain Lion": """ 
+        Cougars can jump 18 feet vertically and 40 feet horizontally, making them powerful hunters.\n
         Utah is home to approximately 2,300 cougars, according to wildlife estimates.\n
         The highest altitude cougar was spotted at 19,024 feet above sea level.\n
         Cougars are ambush predators, stalking or waiting to strike their prey.\n
         Cougar cubs stay with their mothers for 18 months to 2 years, learning survival skills.""",
-    "Scorpion": 
-        """\nNewborn scorpions ride on their mother's back until their first molt for protection.\n
+    "Scorpion": """ 
+        Newborn scorpions ride on their mother's back until their first molt for protection.\n
         Scorpions have remained largely unchanged for 300 million years, according to fossils.\n
         Modern scorpions can live for up to 25 years in the wild under favorable conditions.\n
         Scorpions engage in a complex mating dance known as the promenade à deux.\n
         Only 25 of the nearly 2,000 scorpion species have venom potent enough to harm humans.""",
-    "Mosquito":
-        """\nOnly female mosquitoes bite to extract the protein from blood needed to produce eggs.\n
+    "Mosquito":""" 
+        Only female mosquitoes bite to extract the protein from blood needed to produce eggs.\n
         A mosquito's wings beat from 300 to 600 times per second, creating their distinctive buzz.\n
         Female mosquitoes can consume their body weight in blood during a single feeding.\n
         Mosquitoes lay their eggs in standing water and rest in shady, low-airflow areas.\n
         They can detect the carbon dioxide in your breath from up to 75 feet away.""",
-    "Raccoon": 
-        """\nRaccoon paws have very sensitive nerves, and wetting them increases their sensitivity.\n
+    "Raccoon": """ 
+        Raccoon paws have very sensitive nerves, and wetting them increases their sensitivity.\n
         Raccoons thrive in urban areas, adapting well to life alongside humans.\n
         Raccoons are the second most frequently reported rabid wildlife species in the U.S.\n
         They are excellent climbers and can descend tree trunks headfirst with ease.\n
         The name "raccoon" comes from an Algonquin word meaning "one who rubs with his hands." """,
-    "Black Bear": 
-        """\nBlack bears hibernate from late November to early December to conserve energy in winter.\n
+    "Black Bear": """ 
+        Black bears hibernate from late November to early December to conserve energy in winter.\n
         They typically live in forests and are excellent tree climbers, sometimes sleeping in trees.\n
         Black bear cubs stay with their mother for one to three years, learning survival skills.\n
         These bears are strong swimmers, capable of paddling over a mile in freshwater.\n
         Black bears can sprint at speeds up to 35 miles per hour when threatened.""",
-    "Coyote": 
-        """\nCoyotes are highly adaptable and can be found in nearly every habitat in North America.\n
+    "Coyote": """ 
+        Coyotes are highly adaptable and can be found in nearly every habitat in North America.\n
         Coyotes form strong family bonds, with packs usually consisting of a mated pair and offspring.\n
         They are known for their distinctive vocalizations, including howls, yips, and barks.\n
         Coyotes can run at speeds of up to 40 miles per hour, making them very fast predators.\n
         Their excellent senses of smell, hearing, and sight help them hunt and avoid danger.""",
-    "Gila Monster": 
-        """\nGila monsters are one of only two venomous lizards in North America, with a painful bite.\n
+    "Gila Monster": """ 
+        Gila monsters are one of only two venomous lizards in North America, with a painful bite.\n
         They can store fat in their tails, surviving for months on these reserves without food.\n
         Gila monsters use their keen sense of smell to locate nests of eggs and small prey.\n
         Once a Gila monster bites, it tends to hold on, gnawing to inject venom through its teeth.\n
         Due to their slow reproduction and shrinking habitat, they are protected by law.""",
-    "Logan Cropper": 
-        """\nPresident of the comedy club and drummer in a salsa band, Logan is a multi-talented guy.\n
+    "Logan Cropper": """ 
+        President of the comedy club and drummer in a salsa band, Logan is a multi-talented guy.\n
+        Known for his fearless attitude, he can stare down a laser without flinching.\n
+        Logan is a skilled gamer, often playing Lucina in Smash Bros tournaments.\n
+        With his diverse skills and confidence, Logan is the most dangerous "animal" of all."""
+}
+
+animal_descriptions = {
+    "Moose": """         
+        Moose are the largest mammals in Utah and can be surprisingly dangerous.\n 
+        Moose are often aggressive, especially during mating season and when protecting their young.\n 
+        They are known to charge when they feel threatened, and their massive antlers can cause severe injury.\n 
+        Moose encounters are common in Utah’s mountainous regions, and it’s best to keep a safe distance if you spot one in the wild.\n
+        But if you do run into a moose, you should look out for these signs of aggression: licking their long snouts, their ears pinned back, lowering their head as if to charge.\n""",
+    "Black Widow": """
+        Comparable to several other of our previous dangerous animals,\n 
+        the infamous black widow spider has distinctive markings one should keep an eye out for.\n 
+        The blood red hourglass markings on the spider’s back is a clear sign you should avoid these creatures at all costs.\n
+        A black widow sting is one of the worst insect bites a person can ever experience.\n 
+        Symptoms include nausea, headaches, vomiting, hallucinations, seizures, muscle spasms, fever, and possibly even shock.\n
+        Anyone bitten by a black widow should obtain medical care immediately so they can be administered anti-venom for their bite.\n""",
+    "Rattlesnake": """ 
+        Like most arid regions, rattlesnakes are rather ubiquitous in Utah.\n 
+        Indeed, our state contains up to five different species of the iconic snake.\n 
+        If you are unlucky enough to be bitten by this noisy reptiles, you should seek out emergency medical care as soon as possible.\n 
+        The venom rattlesnakes produce can cause long-term damage to your brain and to your nervous system.\n 
+        A bite from a rattlesnake is not an injury you should just try to walk off.\n
+        Thankfully, rattlesnakes are nocturnal animals who prefer to hide beneath the ground to avoid the blazing sun.\n 
+        Considering how rattlesnakes, too, have a basic form of heat vision, it’s highly likely they will see you in the dark before you see them.\n 
+        And even then, you could probably hear them at night thanks to their characteristic rattle sound.\n 
+        If that doesn’t send you running in the opposite direction, you’re either brave or reckless.\n""",
+    "Mountain Lion": """ 
+        If you encounter a mountain lion in the mountains or deserts of Utah, you should not attempt to run away.\n 
+        Mountain lions are capable of incredible bursts of speed (up to 50 miles per hour) and are prolific hunters.\n 
+        The best way to stay safe in Utah’s mountain lion territories is to never hike alone, stay close to your group,\n 
+        keep your campsite clean and free of litter, and avoid any area with an animal carcass.\n 
+        You should treat a mountain lion encounter much the same way you would with a bear by keeping eye contact,\n 
+        backing away slowly, and giving the animal time and space to escape your company.\n""",
+    "Scorpion": """ 
+        No one who has been stung by a scorpion likely wants to repeat the experience ever again.\n 
+        The reason why is the venom these tiny insects inject packs quite the punch.\n 
+        One scorpion sting can cause excruciating pain, repetitive vomiting, swelling, and numbness all throughout the body.\n
+        Symptoms often last 1 to 3 days and some unlucky sting recipients may even find it hard to breath or even move the affected limb.\n 
+        Sadly, these pesky bugs are all too common in Mexico with up to 100,000 people stung each and every year.\n 
+        The best way to avoid feeling the sting of bark scorpions while you’re out hiking or exploring is to wear a thick pair of boots.\n""",
+    "Mosquito":""" 
+        Weighing in at a diminutive 5 milligrams, the mosquito is, without a doubt, the smallest creature on this list.\n 
+        Not to mention the most common. What makes mosquitos so dangerous are the numerous diseases they can transmit to those they bite.\n 
+        These diseases include two forms of encephalitis, St. Louis and Equine, and the West Nile virus.\n 
+        The worst of these three viruses is equine encephalitis since it requires medical attention.\n 
+        Symptoms include vomiting, headache, and a stiff neck.\n 
+        Thankfully, mosquitos are seasonal in Utah, preferring the warmer months to prey on hapless humans outside enjoying the sun.\n""",
+    "Raccoon": """ 
+        Raccoons may look like cute, furry bandits, but do not doubt the ferocity of these animals.\n 
+        Not only do raccoons love to invade urban centers, they will attack humans at the drop of a hat.\n 
+        The odds a raccoon attack can prove deadly are low considering how most raccoons are smaller than most domesticated dogs.\n 
+        They do remain a lethal threat, however, due to how many of them carry the deadly disease rabies.\n 
+        Unfortunately, rabies is often a fatal disease if you have not been vaccinated.\n 
+        Like most animals on this list, it’s best to avoid raccoons altogether.\n 
+        If they find their way into your house or yard, it’s best to hire a professional to remove the raccoon.\n 
+        If you have a close encounter with one it’s best to avoid eye contact and back off from the wild animal.\n""",
+    "Black Bear": """ 
+        Most Utahans are surprised to learn there are thousands of black bears roaming the state.\n 
+        Thankfully, most of these furry beasts are only found deep in the forests or atop one of the state’s many mountains.\n 
+        Utah’s largest predator by a wide margin, you should do all you can to avoid a run-in with a black bear if you’re out hiking or camping.\n
+        While a black bear won’t attack humans for dietary reasons, it will charge you if it feels threatened or if its cubs are around.\n 
+        If you do bump into a black bear do not run. Stand your ground and don’t try to play dead or curl into a ball.\n 
+        Just give the bear time and space to flee and you’ll likely walk away with an amazing story to tell your friends and family.\n 
+        If a black bear does, for some odd reason, attack you, be sure to fight like your life depends on it, because it does.\n 
+        If you packed bear spray, now would be the time to use it.\n""",
+    "Coyote": """ 
+        Coyotes are a pretty common site in the Utah wilderness.\n 
+        While these furry animals may look a lot like their distant cousins, the domesticated dog, the similarities stop there.\n 
+        Coyotes are wild animals which will attack you if you give them the chance.\n 
+        If you encounter a coyote in the wild, the first thing you should do is stay calm.\n 
+        The coyote is likely more nervous than you are.\n 
+        The best tactic is to attempt to scare it away by yelling, waving your arms, and backing away.\n 
+        Whatever you do avoid turning your back on the animal. This might cause it overcome its fears and chase after you.\n 
+        And considering how fast a coyote can run, over 35 mph, you don’t stand a chance in a foot race.\n""",
+    "Gila Monster": """ 
+        This reptile certainly has the most frightening name on this list of dangerous animals.\n 
+        But the infamous Gila Monster is more bark than bite in real life.\n 
+        Sluggish and slow, the Gila Monster is easy to avoid if you spot one in the wild.\n 
+        And they should be easy to spot since they often grow up to two feet in length.\n
+        You don’t want to get bitten by a Gila Monster though.\n 
+        Their bite packs quite a wallop of venom, with some victims reporting it as toxic as a rattlesnake strike.\n 
+        Thankfully, there have been no reported deaths due to Gila Monster bites in over 100 years.\n 
+        This doesn’t mean you should act recklessly around one though.\n 
+        The best way to deal with a Gila Monster in the wild is to just back away and find another path.\n 
+        Trust us. No one wants to be the first Gila Monster fatality in a century.\n""",
+    "Logan Cropper": """ 
+        President of the comedy club and drummer in a salsa band, Logan is a multi-talented guy.\n
         Known for his fearless attitude, he can stare down a laser without flinching.\n
         Logan is a skilled gamer, often playing Lucina in Smash Bros tournaments.\n
         With his diverse skills and confidence, Logan is the most dangerous "animal" of all."""
@@ -339,7 +430,7 @@ def draw_fight_screen():
         winning_sprite = selected_animal_indices.index(min(selected_animal_indices))
         # Get the winning animal
         winning_animal = selected_animals[winning_sprite]
-        winning_description = f"The {winning_animal} is the number {animals.index(winning_animal) + 1} most dangerous animal!"
+        winning_description = f"The {winning_animal} is Utah's number {animals.index(winning_animal) + 1} most dangerous animal!"
 
         # Display the winning animal's image
         #if winning_animal in animal_images.keys():
@@ -351,6 +442,9 @@ def draw_fight_screen():
         end_text = font_select_animal_large.render(winning_description, True, WHITE)
         pygame.draw.rect(screen, (20, 20, 20), (0, SCREEN_HEIGHT / 5 - end_banner_height / 2, SCREEN_WIDTH, end_banner_height), 0)
         screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)))
+
+        animal_description = animal_descriptions[winning_animal]
+        draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 2 + 100, 20)
 
 
 
