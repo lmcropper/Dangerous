@@ -155,7 +155,7 @@ sound_title_start = pygame.mixer.Sound("sounds/title_start.wav")
 sound_playerselect_start = pygame.mixer.Sound("sounds/playerselect_start.wav")
 sound_playerselect_move = pygame.mixer.Sound("sounds/playerselect_move.wav")
 sound_playerselect_select = pygame.mixer.Sound("sounds/playerselect_select.wav")
-sound_smash_attack = pygame.mixer.Sound("sounds/sound_smash_attack.wav")
+sound_smash_attack = pygame.mixer.Sound("sounds/smash_attack.wav")
 
 # Animal Select global params
 select_background_color = (200, 200, 200)
