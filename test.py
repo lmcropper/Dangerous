@@ -10,7 +10,7 @@ try:
     print(f"Connected to {port} at {baudrate} baud")
 
     # Send a command
-    command = b'100'  # Replace with your command
+    command = b'100\n'  # Replace with your command
     ser.write(command)
     #print(f"Sent command: {command.decode().strip()}")
 
