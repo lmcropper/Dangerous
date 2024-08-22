@@ -23,7 +23,7 @@ clock = pygame.time.Clock()
 framerate = 60
 
 # Serial port settings (adjust the port and baudrate as needed)
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)  # Replace 'COM4' with your serial port
+ser = serial.Serial('/dev/ttyUSB4', 9600, timeout=1)  # Replace 'COM4' with your serial port
 
 # Game states
 TITLE_SCREEN = "title"
