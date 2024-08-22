@@ -3,6 +3,7 @@ import sys
 import time
 import random
 import math
+import serial 
 
 # Initialize Pygame
 pygame.init()
@@ -20,6 +21,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Top 10 Dangerous Animals")
 clock = pygame.time.Clock()
 framerate = 60
+
+# Serial port settings (adjust the port and baudrate as needed)
+ser = serial.Serial('/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0', 115200, timeout=1) 
 
 # Game states
 TITLE_SCREEN = "title"
@@ -321,6 +325,16 @@ def draw_multiline_text(text, font, color, surface, x, y, line_height):
         line_surface = font.render(line, True, color)
         surface.blit(line_surface, (x, y + i * line_height))
 
+def send_danger_level(index):
+    """
+    Sends a danger level over serial based on the animal's index.
+    The level is scaled between 1 (least dangerous) to 100 (most dangerous).
+    """
+    danger_level = int(((len(animals) - index) / len(animals)) * 100)
+    ser.write(danger_level.to_bytes(1, 'big'))  # Send as a single byte
+    print(f"Sent danger level {danger_level} over serial for animal index {index}")
+
+
 # Functions
 def draw_title_screen():
     screen.fill(WHITE)
@@ -592,6 +606,7 @@ def update_sprite_positions():
         # Check if the losing sprite has gone off the top of the screen
         if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
             animation_state = STATE_FINISHED
+            send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
             step_count = 0
 
 
