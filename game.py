@@ -30,6 +30,12 @@ current_state = TITLE_SCREEN
 SELECT_BUTTON = 0
 START_BUTTON = 7
 
+# Constants
+RETURN_TO_TITLE_DELAY = 3  # Delay in seconds before showing the message to return to the title screen
+
+# Global variable to track the time when the fight ends
+fight_end_time = None
+
 # Fonts
 font_title_title = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 74)
 font_select_fight_banner = pygame.font.Font("./fonts/Platinum Sign Over.ttf", 150)
@@ -290,6 +296,17 @@ KEYBOARD_KEYS = {
     "P2_RIGHT": pygame.K_RIGHT       # Player 2 moves right
 }
 
+def reset_game():
+    """Resets game state for a new round."""
+    global selected_indices, selected_animals, animal_selected, animation_state, sprite_positions, fight_end_time
+
+    selected_indices = [0, 1]
+    selected_animals = [None, None]
+    animal_selected = [False, False]
+    animation_state = STATE_APPEAR
+    sprite_positions = [(200, 300), (SCREEN_WIDTH - 200 - sprite_size[1], 300)]
+    fight_end_time = None
+
 # Function to draw multiline text
 def draw_multiline_text(text, font, color, surface, x, y, line_height):
     lines = text.split('\n')  # Split the text into lines based on the newline character
@@ -434,7 +451,6 @@ def draw_fight_screen():
         # Display the winning animal's image
         if winning_animal in animal_images.keys():
             winning_image = animal_full_images[winning_animal]
-            #scaled_image = pygame.transform.scale(winning_image, (300, 300))
             screen.blit(winning_image, (SCREEN_WIDTH / 2 - 925, SCREEN_HEIGHT / 2 - 200))
 
         end_banner_height = 200
@@ -445,8 +461,10 @@ def draw_fight_screen():
         animal_description = animal_descriptions[winning_animal]
         draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 + 100, 20)
 
-
-
+        # Check if the delay has passed to show the message
+        if fight_end_time and time.time() - fight_end_time > RETURN_TO_TITLE_DELAY:
+            return_text = font_mid.render("Press any button to return to the title screen", True, BLACK)
+            screen.blit(return_text, ((SCREEN_WIDTH - return_text.get_width()) // 2 + 200, SCREEN_HEIGHT - 100))
 
 def update_sprite_positions():
     global animation_state, step_count, turn_count
@@ -659,19 +677,23 @@ def handle_character_select_events(event):
     pygame.event.clear()
 
 def handle_fight_screen_events(event):
-    pass
+    global current_state, fight_end_time
+    if animation_state == STATE_FINISHED:
+        # If the fight is finished and the delay has passed, check for any input
+        if fight_end_time and time.time() - fight_end_time > RETURN_TO_TITLE_DELAY:
+            if event.type == pygame.KEYDOWN or event.type == pygame.JOYBUTTONDOWN:
+                # Return to the title screen
+                current_state = TITLE_SCREEN
+                reset_game()
 
 # Main loop
 running = True
 while running:
     for event in pygame.event.get():
-        #print(event)
         if event.type == pygame.QUIT:
             running = False
         # Handle hotplugging
         if event.type == pygame.JOYDEVICEADDED:
-            # This event will be generated when the program starts for every
-            # joystick, filling up the list without needing to create them manually.
             joy = pygame.joystick.Joystick(event.device_index)
             joysticks[joy.get_instance_id()] = joy
             print(f"Joystick {joy.get_instance_id()} connected")
@@ -681,14 +703,13 @@ while running:
             print(f"Joystick {event.instance_id} disconnected")
 
         if current_state == TITLE_SCREEN:
-            # Start playing music when entering character select
-            if pygame.mixer.music.get_busy() == False:  # Check if music is already playing
-                pygame.mixer.music.play(-1)  # Loop music indefinitely
+            if pygame.mixer.music.get_busy() == False:
+                pygame.mixer.music.play(-1)
             handle_title_screen_events(event)
         elif current_state == CHARACTER_SELECT:
             handle_character_select_events(event)
         elif current_state == FIGHT_SCREEN:
-            pygame.mixer.music.stop()  # Stop music when leaving character select
+            pygame.mixer.music.stop()
             handle_fight_screen_events(event)
 
     if current_state == TITLE_SCREEN:
@@ -696,6 +717,8 @@ while running:
     elif current_state == CHARACTER_SELECT:
         draw_character_select()
     elif current_state == FIGHT_SCREEN:
+        if animation_state == STATE_FINISHED and fight_end_time is None:
+            fight_end_time = time.time()  # Record the time when the fight ends
         update_sprite_positions()
         draw_fight_screen()
 
