@@ -9,7 +9,7 @@ try:
     ser = serial.Serial(port, baudrate, timeout=1)
     print(f"Connected to {port} at {baudrate} baud")
 
-    time.sleep(3)
+    time.sleep(5)
     # Send a command
     command = '100\n'  # Replace with your command
     #ser.write(command.encode())
