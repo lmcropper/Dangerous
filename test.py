@@ -12,7 +12,7 @@ try:
     time.sleep(5)
     # Send a command
     command = '100\n'  # Replace with your command
-    #ser.write(command.encode())
+    ser.write(command.encode())
     #print(f"Sent command: {command.decode().strip()}")
 
     # Optionally, read a response
