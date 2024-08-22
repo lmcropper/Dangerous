@@ -23,7 +23,7 @@ clock = pygame.time.Clock()
 framerate = 60
 
 # Serial port settings (adjust the port and baudrate as needed)
-ser = serial.Serial('/dev/serial', 9600, timeout=1)  # Replace 'COM4' with your serial port
+ser = serial.Serial('/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0', 115200, timeout=1) 
 
 # Game states
 TITLE_SCREEN = "title"
@@ -537,6 +537,7 @@ def update_sprite_positions():
         # Check if the losing sprite has gone off the top of the screen
         if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
             animation_state = STATE_FINISHED
+            send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
             step_count = 0
 
 
@@ -544,8 +545,6 @@ def update_sprite_positions():
         # Get the winning animal
         winning_animal = selected_animals[winning_sprite]
         winning_description = "The " + winning_animal + " is the number " + str(animals.index(winning_animal)) + " most dangerous animal!"
-
-        send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
 
         # Display the winning animal's name
         end_banner_height = 200
