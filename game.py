@@ -255,6 +255,13 @@ animal_sprites = {
 }
 sprite_size = (300, 300) # y, x
 
+# Load animation frames for the blast zone
+blast_zone_frames = [
+    pygame.image.load(f"images/blast_zone/Blast{i}.gif") for i in range(1, 14)
+]
+
+stage_background = pygame.image.load("images/stages/FD_Forest.jpg")
+
 background_image = pygame.image.load("images/brick.jpg")
 
 # Load and play background music for character select
@@ -409,6 +416,7 @@ STATE_STEP_CLOSER = 1
 STATE_FIGHT = 2
 STATE_FINISHED = 3
 STATE_BUMP = 4
+STATE_ANIMATION = 5
 
 # Constants for moves
 BACK = 0
@@ -417,15 +425,27 @@ KICK = 2
 
 # Initialize variables
 animation_state = STATE_APPEAR
-sprite_positions = [(200, 300), (SCREEN_WIDTH - 200 - sprite_size[1], 300)]
+sprite_positions = [(0, SCREEN_HEIGHT / 2), (SCREEN_WIDTH, SCREEN_HEIGHT / 2)]
 sprite_home_positions = sprite_positions.copy()
+winning_sprite = 0
+losing_sprite = 0
 sprite_angles = [0, 0]
 sprite_attack_state = BACK
 step_count = 0
 turn_count = 0
 
+animation_frame_index = 0
+animation_frame_time = 0.1  # Time between frames in seconds
+last_frame_time = 0
+
 def draw_fight_screen():
+    global animation_state, step_count, fight_end_time, animation_frame_index, last_frame_time, winning_sprite, losing_sprite
+    modifier = 1 if winning_sprite == 0 else -1
+
     screen.fill(WHITE)
+    scaled_background = pygame.transform.scale(stage_background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen.blit(scaled_background, (0, 0))
+
     fight_text = font_fight_title.render("FIGHT!", True, BLACK)
     screen.blit(fight_text, ((SCREEN_WIDTH - fight_text.get_width()) // 2, 20))
 
@@ -434,14 +454,57 @@ def draw_fight_screen():
         if animal in animal_sprites.keys():
             sprite = animal_sprites[animal]
             scaled_sprite = pygame.transform.scale(sprite, sprite_size)
-            if i == 0:  # Mirror the sprite on the left
-                scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
-            screen.blit(scaled_sprite, sprite_positions[i])
+            scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
+            if animation_state != STATE_FIGHT or i == winning_sprite:
+                screen.blit(scaled_sprite, (sprite_positions[i][0] - sprite_size[0] // 2, sprite_positions[i][1] - sprite_size[1] // 2))
         else:
             dummy_sprite = font_large.render("?", True, BLACK)
-            screen.blit(dummy_sprite, sprite_positions[i])
+            screen.blit(dummy_sprite, (sprite_positions[i][0] - dummy_sprite.get_width() // 2, sprite_positions[i][1] - dummy_sprite.get_height() // 2))
+
+    if animation_state == STATE_FIGHT:
+        losing_sprite = 1 - winning_sprite
+
+        if step_count == 0:
+            # Winning sprite continues moving forward
+            sprite_positions[winning_sprite] = (sprite_positions[winning_sprite][0] + 15, sprite_positions[winning_sprite][1])
+            step_count += 1
+        else:
+            # Losing sprite is propelled up and away
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 120)
+            sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + (250 * modifier), sprite_positions[losing_sprite][1])
+
+            # Apply vertical stretch to the losing sprite
+            original_image = animal_sprites[selected_animals[losing_sprite]]
+            stretched_image = pygame.transform.scale(original_image, (int(sprite_size[0] * 4), int(sprite_size[1] * 0.6)))
+            stretched_image = pygame.transform.rotate(stretched_image, 45 * modifier)
+            screen.blit(stretched_image, (sprite_positions[losing_sprite][0] - stretched_image.get_width() // 2, sprite_positions[losing_sprite][1] - stretched_image.get_height() // 2))
+
+        # Check if the losing sprite has gone off the top of the screen
+        if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
+            animation_state = STATE_ANIMATION
+            step_count = 0
+            fight_end_time = time.time()
+
+    if animation_state == STATE_ANIMATION:
+        # Update the animation frame
+        current_time = time.time()
+        if current_time - last_frame_time > animation_frame_time:
+            animation_frame_index = (animation_frame_index + 1) % len(blast_zone_frames)
+            last_frame_time = current_time
+
+        # Draw the current frame of the animation
+        current_frame = blast_zone_frames[animation_frame_index]
+        current_frame = pygame.transform.scale(current_frame, (current_frame.get_width() * 10, current_frame.get_height() * 10))
+        current_frame = pygame.transform.rotate(current_frame, 130 * modifier)
+        screen.blit(current_frame, (SCREEN_WIDTH / 2 + (650 * modifier) - current_frame.get_width() / 2, 300 - current_frame.get_height() / 2))
+
+        # Check if the animation is finished
+        if animation_frame_index == len(blast_zone_frames) - 1:
+            animation_state = STATE_FINISHED
+            fight_end_time = time.time()
 
     if animation_state == STATE_FINISHED:
+        screen.fill(WHITE)
         selected_animal_indices = [animals.index(animal) for animal in selected_animals]
         winning_sprite = selected_animal_indices.index(min(selected_animal_indices))
         # Get the winning animal
@@ -474,8 +537,8 @@ def update_sprite_positions():
 
     if animation_state == STATE_APPEAR:
         # Initial position setup from edges of the screen
-        sprite_positions[0] = (-sprite_size[0], sprite_positions[0][1])  # Start off-screen left
-        sprite_positions[1] = (SCREEN_WIDTH, sprite_positions[1][1])     # Start off-screen right
+        sprite_positions[0] = (0, SCREEN_HEIGHT // 2)  # Start off-screen left
+        sprite_positions[1] = (SCREEN_WIDTH, SCREEN_HEIGHT // 2)     # Start off-screen right
         animation_state = STATE_STEP_CLOSER
 
     if animation_state == STATE_STEP_CLOSER:
@@ -484,7 +547,7 @@ def update_sprite_positions():
         sprite_positions[1] = (sprite_positions[1][0] - 20, sprite_positions[1][1])
         
         # Check if they have met in the center
-        if sprite_positions[0][0] >= (SCREEN_WIDTH // 2) - sprite_size[0] and sprite_positions[1][0] <= (SCREEN_WIDTH // 2):
+        if sprite_positions[0][0] >= ((SCREEN_WIDTH // 2) - 100) and sprite_positions[1][0] <= ((SCREEN_WIDTH // 2) + 100):
             animation_state = STATE_BUMP
             sprite_home_positions = sprite_positions.copy()
             step_count = 0
@@ -519,6 +582,12 @@ def update_sprite_positions():
             # Losing sprite is propelled up and away
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0], sprite_positions[losing_sprite][1] - 80)
             sprite_positions[losing_sprite] = (sprite_positions[losing_sprite][0] + 5, sprite_positions[losing_sprite][1])
+
+            # Apply blur and stretch to the losing sprite
+            original_image = animal_sprites[selected_animals[losing_sprite]]
+            stretched_image = pygame.transform.scale(original_image, (sprite_size[0] + 20, sprite_size[1] + 40))
+            blurred_image = pygame.transform.smoothscale(stretched_image, (sprite_size[0], sprite_size[1]))
+            screen.blit(blurred_image, sprite_positions[losing_sprite])
 
         # Check if the losing sprite has gone off the top of the screen
         if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
