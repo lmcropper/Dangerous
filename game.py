@@ -590,6 +590,7 @@ def update_sprite_positions():
         if step_count >= 12:  # Increase the number of steps for smoother bumps
             animation_state = STATE_FIGHT
             sound_smash_attack.play()
+            send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
             step_count = 0
 
     if animation_state == STATE_FIGHT:
@@ -611,7 +612,6 @@ def update_sprite_positions():
         # Check if the losing sprite has gone off the top of the screen
         if sprite_positions[losing_sprite][1] + sprite_size[1] < 0:
             animation_state = STATE_FINISHED
-            send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
             step_count = 0
 
 
