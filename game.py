@@ -23,7 +23,12 @@ clock = pygame.time.Clock()
 framerate = 60
 
 # Serial port settings (adjust the port and baudrate as needed)
-ser = serial.Serial('/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0', 115200, timeout=1) 
+try:
+    ser = serial.Serial('/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0', 115200, timeout=1)
+    print("Connected to serial port")
+except serial.SerialException as e:
+    print(f"Error opening serial port: {e}")
+    ser = None
 
 # Game states
 TITLE_SCREEN = "title"
@@ -330,8 +335,8 @@ def send_danger_level(index):
     Sends a danger level over serial based on the animal's index.
     The level is scaled between 1 (least dangerous) to 100 (most dangerous).
     """
-    danger_level = int(((len(animals) - index) / len(animals)) * 100)
-    ser.write(danger_level.to_bytes(1, 'big'))  # Send as a single byte
+    danger_level = str(int(((len(animals) - index) / len(animals)) * 100))
+    ser.write(danger_level.encode())  # Send as a single byte
     print(f"Sent danger level {danger_level} over serial for animal index {index}")
 
 
