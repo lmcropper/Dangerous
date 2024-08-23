@@ -21,11 +21,13 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Top 10 Dangerous Animals")
 clock = pygame.time.Clock()
 framerate = 60
+dangerometer = False
 
 # Serial port settings (adjust the port and baudrate as needed)
 try:
     ser = serial.Serial('/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0', 115200, timeout=1)
     print("Connected to serial port")
+    dangerometer = True
 except serial.SerialException as e:
     print(f"Error opening serial port: {e}")
     ser = None
@@ -541,7 +543,7 @@ def draw_fight_screen():
         screen.blit(end_text, end_text.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 5)))
 
         animal_description = animal_descriptions[winning_animal]
-        draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 + 100, 20)
+        draw_multiline_text(animal_description, font_mid, BLACK, screen, SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2, 20)
 
         # Check if the delay has passed to show the message
         if fight_end_time and time.time() - fight_end_time > RETURN_TO_TITLE_DELAY:
@@ -590,7 +592,8 @@ def update_sprite_positions():
         if step_count >= 12:  # Increase the number of steps for smoother bumps
             animation_state = STATE_FIGHT
             sound_smash_attack.play()
-            send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
+            if dangerometer:
+                send_danger_level(animals.index(selected_animals[winning_sprite]))  # Send danger level over serial
             step_count = 0
 
     if animation_state == STATE_FIGHT:
@@ -629,7 +632,7 @@ def update_sprite_positions():
         # Display the winning animal's image
         if winning_animal in animal_images.keys():
             winning_image = animal_images[winning_animal]
-            scaled_image = pygame.transform.scale(winning_image, (200, 200))
+            scaled_image = pygame.transform.scale(winning_image, (675, 675))
             screen.blit(scaled_image, (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100))
 
     time.sleep(0.05)  # Smoother animation with shorter sleep
