@@ -475,7 +475,8 @@ def draw_fight_screen():
         if animal in animal_sprites.keys():
             sprite = animal_sprites[animal]
             scaled_sprite = pygame.transform.scale(sprite, sprite_size)
-            scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
+            if i == 0:
+                scaled_sprite = pygame.transform.flip(scaled_sprite, True, False)
             if animation_state != STATE_FIGHT or i == winning_sprite:
                 screen.blit(scaled_sprite, (sprite_positions[i][0] - sprite_size[0] // 2, sprite_positions[i][1] - sprite_size[1] // 2))
         else:
@@ -535,6 +536,7 @@ def draw_fight_screen():
         # Display the winning animal's image
         if winning_animal in animal_images.keys():
             winning_image = animal_full_images[winning_animal]
+            winning_image = pygame.transform.scale(winning_image, (675, 675))
             screen.blit(winning_image, (SCREEN_WIDTH / 2 - 925, SCREEN_HEIGHT / 2 - 200))
 
         end_banner_height = 200
